@@ -1,0 +1,14 @@
+.icon__small {
+	height: var(--space-3);
+	width: var(--space-3);
+}
+
+.icon__medium {
+	height: var(--space-5);
+	width: var(--space-5);
+}
+
+.icon__large {
+	height: var(--space-7);
+	width: var(--space-7);
+}

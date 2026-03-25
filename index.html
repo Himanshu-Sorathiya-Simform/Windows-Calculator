@@ -18,6 +18,165 @@
 	</head>
 
 	<body>
+		<div class="container">
+			<div class="calculator">
+				<main class="calculator__main">
+					<header class="calculator__header">
+						<button class="calculator__menu">
+							<svg class="icon__medium">
+								<use
+									href="assets/icons/ui_icons_sprite.svg#hamburger"></use>
+							</svg>
+						</button>
+
+						<h1 class="calculator__heading">Scientific</h1>
+					</header>
+
+					<div class="calculator__display">
+						<div class="calculator__error">Error</div>
+
+						<div class="calculator__preview">Preview</div>
+
+						<input
+							id="query"
+							type="text"
+							class="calculator__input" />
+					</div>
+
+					<div class="calculator__memory">
+						<button
+							class="calculator__memory-btn calculator__memory-btn--disabled">
+							MC
+						</button>
+						<button
+							class="calculator__memory-btn calculator__memory-btn--disabled">
+							MR
+						</button>
+						<button class="calculator__memory-btn">M+</button>
+						<button class="calculator__memory-btn">M-</button>
+						<button class="calculator__memory-btn">MS</button>
+					</div>
+
+					<div class="calculator__dropdown-container">
+						<button class="calculator__dropdown">
+							<span>Trigonometry</span>
+
+							<svg class="icon__small">
+								<use
+									href="assets/icons/ui_icons_sprite.svg#chevron-down"></use>
+							</svg>
+						</button>
+
+						<button class="calculator__dropdown">
+							<span>Function</span>
+
+							<svg class="icon__small">
+								<use
+									href="assets/icons/ui_icons_sprite.svg#chevron-down"></use>
+							</svg>
+						</button>
+					</div>
+
+					<div class="calculator__keypad">
+						<button class="calculator__key calculator__key--function">
+							2<sup>nd</sup>
+						</button>
+						<button class="calculator__key calculator__key--function">
+							&pi;
+						</button>
+						<button class="calculator__key calculator__key--function">e</button>
+						<button class="calculator__key calculator__key--function">C</button>
+						<button class="calculator__key calculator__key--function">
+							<svg class="icon__medium">
+								<use
+									href="./assets/icons/ui_icons_sprite.svg#backspace"></use>
+							</svg>
+						</button>
+
+						<button class="calculator__key calculator__key--function">
+							x²
+						</button>
+						<button class="calculator__key calculator__key--function">
+							1/x
+						</button>
+						<button class="calculator__key calculator__key--function">
+							⌈x⌉
+						</button>
+						<button class="calculator__key calculator__key--function">
+							exp
+						</button>
+						<button class="calculator__key calculator__key--function">
+							mod
+						</button>
+
+						<button class="calculator__key calculator__key--function">
+							√x
+						</button>
+						<button class="calculator__key calculator__key--function">(</button>
+						<button class="calculator__key calculator__key--function">)</button>
+						<button class="calculator__key calculator__key--function">
+							x!
+						</button>
+						<button class="calculator__key calculator__key--operator">
+							&divide;
+						</button>
+
+						<button class="calculator__key calculator__key--function">
+							xʸ
+						</button>
+						<button class="calculator__key calculator__key--number">7</button>
+						<button class="calculator__key calculator__key--number">8</button>
+						<button class="calculator__key calculator__key--number">9</button>
+						<button class="calculator__key calculator__key--operator">
+							&times;
+						</button>
+
+						<button class="calculator__key calculator__key--function">
+							10ˣ
+						</button>
+						<button class="calculator__key calculator__key--number">4</button>
+						<button class="calculator__key calculator__key--number">5</button>
+						<button class="calculator__key calculator__key--number">6</button>
+						<button class="calculator__key calculator__key--operator">
+							&minus;
+						</button>
+
+						<button class="calculator__key calculator__key--function">
+							log
+						</button>
+						<button class="calculator__key calculator__key--number">1</button>
+						<button class="calculator__key calculator__key--number">2</button>
+						<button class="calculator__key calculator__key--number">3</button>
+						<button class="calculator__key calculator__key--operator">
+							&plus;
+						</button>
+
+						<button class="calculator__key calculator__key--function">
+							ln
+						</button>
+						<button class="calculator__key calculator__key--number">±</button>
+						<button class="calculator__key calculator__key--number">0</button>
+						<button class="calculator__key calculator__key--number">.</button>
+						<button class="button--accent calculator__key  calculator__key--accent calculator__key--operator">
+							&equals;
+						</button>
+					</div>
+				</main>
+
+				<aside class="calculator__sidebar">
+					<nav class="calculator__navbar">
+						<button class="calculator__link">History</button>
+
+						<button class="calculator__link">Memory</button>
+					</nav>
+
+					<div class="calculator__board">
+						<p>Theres no History yet</p>
+					</div>
+				</aside>
+			</div>
+		</div>
+
 		<script
 			defer
 			src="main.js"></script>
