@@ -5,6 +5,9 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Best Calculator, haha" />
 		<title>Your friendly Calculator</title>
 
 		<link
@@ -22,7 +25,9 @@
 			<div class="calculator">
 				<main class="calculator__main">
 					<header class="calculator__header">
-						<button class="calculator__menu">
+						<button
+							title="menu"
+							class="calculator__menu">
 							<svg class="icon__medium">
 								<use
 									href="assets/icons/ui_icons_sprite.svg#hamburger"></use>
@@ -40,6 +45,7 @@
 						<input
 							id="query"
 							type="text"
+							placeholder="0"
 							class="calculator__input" />
 					</div>
 
@@ -84,9 +90,15 @@
 						<button class="calculator__key calculator__key--function">
 							&pi;
 						</button>
-						<button class="calculator__key calculator__key--function">e</button>
-						<button class="calculator__key calculator__key--function">C</button>
 						<button class="calculator__key calculator__key--function">
+							e
+						</button>
+						<button class="calculator__key calculator__key--function">
+							C
+						</button>
+						<button
+							title="backspace"
+							class="calculator__key calculator__key--function">
 							<svg class="icon__medium">
 								<use
 									href="./assets/icons/ui_icons_sprite.svg#backspace"></use>
@@ -112,8 +124,12 @@
 						<button class="calculator__key calculator__key--function">
 							√x
 						</button>
-						<button class="calculator__key calculator__key--function">(</button>
-						<button class="calculator__key calculator__key--function">)</button>
+						<button class="calculator__key calculator__key--function">
+							(
+						</button>
+						<button class="calculator__key calculator__key--function">
+							)
+						</button>
 						<button class="calculator__key calculator__key--function">
 							x!
 						</button>
@@ -157,7 +173,8 @@
 						<button class="calculator__key calculator__key--number">±</button>
 						<button class="calculator__key calculator__key--number">0</button>
 						<button class="calculator__key calculator__key--number">.</button>
-						<button class="button--accent calculator__key  calculator__key--accent calculator__key--operator">
+						<button
+							class="button--accent calculator__key calculator__key--accent calculator__key--operator">
 							&equals;
 						</button>
 					</div>
@@ -165,9 +182,12 @@
 
 				<aside class="calculator__sidebar">
 					<nav class="calculator__navbar">
-						<button class="calculator__link">History</button>
+						<button
+							class="calculator__nav-button calculator__nav-button--active">
+							History
+						</button>
 
-						<button class="calculator__link">Memory</button>
+						<button class="calculator__nav-button">Memory</button>
 					</nav>
 
 					<div class="calculator__board">

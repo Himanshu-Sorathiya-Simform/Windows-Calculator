@@ -1,6 +1,6 @@
 .container {
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
 	padding: var(--space-8);
 	color: var(--color-text-white);
 	background-color: var(--color-gray-light);
@@ -31,6 +31,15 @@
 	align-items: center;
 	gap: var(--space-2);
 
+	.calculator__menu {
+		padding: var(--space-1);
+
+		&:focus {
+			outline: var(--border-thin) solid var(--color-text-white);
+			border-radius: var(--border-radius-medium);
+		}
+	}
+
 	.calculator__heading {
 		font-size: var(--font-size-lg);
 	}
@@ -55,6 +64,10 @@
 		text-align: right;
 		font-size: var(--font-size-2xl);
 		font-weight: var(--font-weight-bold);
+
+		&::placeholder {
+			color: inherit;
+		}
 	}
 }
 
@@ -70,11 +83,16 @@
 	.calculator__memory-btn {
 		padding: var(--space-1) var(--space-4);
 		border-radius: var(--border-radius-medium);
-		text-align: left;
+		text-align: center;
 		transition: background-color 150ms linear;
 
 		&:hover {
 			background-color: var(--color-gray-dark);
+		}
+
+		&:focus {
+			outline: var(--border-thin) solid var(--color-text-white);
+			border-radius: var(--border-radius-medium);
 		}
 	}
 
@@ -105,6 +123,11 @@
 		&:hover {
 			background-color: var(--color-gray-dark);
 		}
+
+		&:focus {
+			outline: var(--border-thin) solid var(--color-text-white);
+			border-radius: var(--border-radius-medium);
+		}
 	}
 }
 
@@ -130,6 +153,11 @@
 		&:hover {
 			filter: brightness(130%);
 		}
+
+		&:focus {
+			outline: var(--border-thin) solid var(--color-text-white);
+			border-radius: var(--border-radius-medium);
+		}
 	}
 
 	.calculator__key--number {
@@ -148,23 +176,55 @@
 }
 
 .calculator__sidebar {
-	flex: 1;
+	flex: 2;
 
 	padding: var(--space-3);
 
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-4);
+	gap: var(--space-6);
 
 	.calculator__navbar {
 		font-weight: var(--font-weight-medium);
 
 		display: flex;
 		align-items: center;
-		gap: var(--space-2);
+		gap: var(--space-8);
+	}
+
+	.calculator__nav-button {
+		position: relative;
+
+		padding: var(--space-1) var(--space-2);
+
+		&::after {
+			content: '';
+
+			position: absolute;
+			right: 0;
+			bottom: -2px;
+
+			height: 2px;
+			width: 0;
+			background-color: var(--color-accent);
+			border-radius: 0.2rem;
+
+			transition: width 0.3s;
+		}
+
+		&:hover::after,
+		&:focus::after {
+			left: 0;
+			width: 100%;
+		}
+	}
+
+	.calculator__nav-button--active::after {
+		width: 100%;
 	}
 
 	.calculator__board {
+		padding: var(--space-1) var(--space-2);
 		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight-light);
 	}
