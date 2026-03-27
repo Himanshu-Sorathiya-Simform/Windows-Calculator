@@ -1,0 +1,32 @@
+@media (max-width: 1440px) {
+}
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+	.calculator {
+		width: min(25rem, 100%);
+	}
+
+	.calculator__main {
+		width: 100%;
+	}
+
+	.btn--history {
+		display: inline-block;
+	}
+
+	.calculator__sidebar {
+		display: none;
+	}
+}
+
+@media (max-width: 480px) {
+	.calculator__memory {
+		padding: var(--space-2);
+	}
+}

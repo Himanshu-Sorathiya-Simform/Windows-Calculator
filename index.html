@@ -8,7 +8,8 @@
 		<meta
 			name="description"
 			content="Best Calculator, haha" />
-		<title>Your friendly Calculator</title>
+
+		<title>Calculator</title>
 
 		<link
 			rel="icon"
@@ -35,6 +36,15 @@
 						</button>
 
 						<h1 class="calculator__heading">Scientific</h1>
+
+						<button
+							title="history"
+							class="btn--history">
+							<svg class="icon__medium btn--history">
+								<use
+									href="./assets/icons/ui_icons_sprite.svg#history"></use>
+							</svg>
+						</button>
 					</header>
 
 					<div class="calculator__display">
@@ -49,19 +59,23 @@
 							class="calculator__input" />
 					</div>
 
-					<div class="calculator__memory">
+					<!-- <div class="calculator__memory">
 						<button
 							class="calculator__memory-btn calculator__memory-btn--disabled">
 							MC
 						</button>
+
 						<button
 							class="calculator__memory-btn calculator__memory-btn--disabled">
 							MR
 						</button>
+
 						<button class="calculator__memory-btn">M+</button>
+
 						<button class="calculator__memory-btn">M-</button>
+
 						<button class="calculator__memory-btn">MS</button>
-					</div>
+					</div> -->
 
 					<div class="calculator__dropdown-container">
 						<button class="calculator__dropdown">
@@ -84,20 +98,33 @@
 					</div>
 
 					<div class="calculator__keypad">
-						<button class="calculator__key calculator__key--function">
+						<button
+							data-key="trigonometry_inverse"
+							class="calculator__key calculator__key--function">
 							2<sup>nd</sup>
 						</button>
-						<button class="calculator__key calculator__key--function">
+
+						<button
+							data-key="pi"
+							class="calculator__key calculator__key--function">
 							&pi;
 						</button>
-						<button class="calculator__key calculator__key--function">
+
+						<button
+							data-key="euler"
+							class="calculator__key calculator__key--function">
 							e
 						</button>
-						<button class="calculator__key calculator__key--function">
+
+						<button
+							data-key="clear"
+							class="calculator__key calculator__key--function">
 							C
 						</button>
+
 						<button
 							title="backspace"
+							data-key="backspace"
 							class="calculator__key calculator__key--function">
 							<svg class="icon__medium">
 								<use
@@ -105,75 +132,182 @@
 							</svg>
 						</button>
 
-						<button class="calculator__key calculator__key--function">
+						<button
+							data-key="square"
+							class="calculator__key calculator__key--function">
 							x²
 						</button>
-						<button class="calculator__key calculator__key--function">
+
+						<button
+							data-key="reciprocal"
+							class="calculator__key calculator__key--function">
 							1/x
 						</button>
-						<button class="calculator__key calculator__key--function">
+
+						<button
+							data-key="ceiling"
+							class="calculator__key calculator__key--function">
 							⌈x⌉
 						</button>
-						<button class="calculator__key calculator__key--function">
+
+						<button
+							data-key="exponent"
+							class="calculator__key calculator__key--function">
 							exp
 						</button>
-						<button class="calculator__key calculator__key--function">
+
+						<button
+							data-key="modulo"
+							class="calculator__key calculator__key--function">
 							mod
 						</button>
 
-						<button class="calculator__key calculator__key--function">
+						<button
+							data-key="root"
+							class="calculator__key calculator__key--function">
 							√x
 						</button>
-						<button class="calculator__key calculator__key--function">
+
+						<button
+							data-key="left_parenthesis"
+							class="calculator__key calculator__key--function">
 							(
 						</button>
-						<button class="calculator__key calculator__key--function">
+
+						<button
+							data-key="right_parenthesis"
+							class="calculator__key calculator__key--function">
 							)
 						</button>
-						<button class="calculator__key calculator__key--function">
+
+						<button
+							data-key="factorial"
+							class="calculator__key calculator__key--function">
 							x!
 						</button>
-						<button class="calculator__key calculator__key--operator">
+
+						<button
+							data-key="divide"
+							class="calculator__key calculator__key--operator">
 							&divide;
 						</button>
 
-						<button class="calculator__key calculator__key--function">
+						<button
+							data-key="power"
+							class="calculator__key calculator__key--function">
 							xʸ
 						</button>
-						<button class="calculator__key calculator__key--number">7</button>
-						<button class="calculator__key calculator__key--number">8</button>
-						<button class="calculator__key calculator__key--number">9</button>
-						<button class="calculator__key calculator__key--operator">
+
+						<button
+							data-key="seven"
+							class="calculator__key calculator__key--number">
+							7
+						</button>
+
+						<button
+							data-key="eight"
+							class="calculator__key calculator__key--number">
+							8
+						</button>
+
+						<button
+							data-key="nine"
+							class="calculator__key calculator__key--number">
+							9
+						</button>
+
+						<button
+							data-key="multiply"
+							class="calculator__key calculator__key--operator">
 							&times;
 						</button>
 
-						<button class="calculator__key calculator__key--function">
+						<button
+							data-key="ten_power"
+							class="calculator__key calculator__key--function">
 							10ˣ
 						</button>
-						<button class="calculator__key calculator__key--number">4</button>
-						<button class="calculator__key calculator__key--number">5</button>
-						<button class="calculator__key calculator__key--number">6</button>
-						<button class="calculator__key calculator__key--operator">
+
+						<button
+							data-key="four"
+							class="calculator__key calculator__key--number">
+							4
+						</button>
+
+						<button
+							data-key="five"
+							class="calculator__key calculator__key--number">
+							5
+						</button>
+
+						<button
+							data-key="six"
+							class="calculator__key calculator__key--number">
+							6
+						</button>
+
+						<button
+							data-key="minus"
+							class="calculator__key calculator__key--operator">
 							&minus;
 						</button>
 
-						<button class="calculator__key calculator__key--function">
+						<button
+							data-key="logarithm"
+							class="calculator__key calculator__key--function">
 							log
 						</button>
-						<button class="calculator__key calculator__key--number">1</button>
-						<button class="calculator__key calculator__key--number">2</button>
-						<button class="calculator__key calculator__key--number">3</button>
-						<button class="calculator__key calculator__key--operator">
+
+						<button
+							data-key="one"
+							class="calculator__key calculator__key--number">
+							1
+						</button>
+
+						<button
+							data-key="two"
+							class="calculator__key calculator__key--number">
+							2
+						</button>
+
+						<button
+							data-key="three"
+							class="calculator__key calculator__key--number">
+							3
+						</button>
+
+						<button
+							data-key="addition"
+							class="calculator__key calculator__key--operator">
 							&plus;
 						</button>
 
-						<button class="calculator__key calculator__key--function">
+						<button
+							data-key="natural_log"
+							class="calculator__key calculator__key--function">
 							ln
 						</button>
-						<button class="calculator__key calculator__key--number">±</button>
-						<button class="calculator__key calculator__key--number">0</button>
-						<button class="calculator__key calculator__key--number">.</button>
+
 						<button
+							data-key="sign_change"
+							class="calculator__key calculator__key--number">
+							±
+						</button>
+
+						<button
+							data-key="zero"
+							class="calculator__key calculator__key--number">
+							0
+						</button>
+
+						<button
+							data-key="decimal"
+							class="calculator__key calculator__key--number">
+							.
+						</button>
+
+						<button
+							data-key="equals"
 							class="button--accent calculator__key calculator__key--accent calculator__key--operator">
 							&equals;
 						</button>

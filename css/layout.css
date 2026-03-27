@@ -45,6 +45,11 @@
 	}
 }
 
+.btn--history {
+	display: none;
+	margin: 0 0 0 auto;
+}
+
 .calculator__display {
 	padding: var(--space-2);
 
