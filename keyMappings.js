@@ -1,39 +1,67 @@
 const keyMap = new Map([
-	['trigonometry_inverse', { display: '', expression: '' }],
-	['pi', { display: 'π', expression: 'Math.PI' }],
-	['euler', { display: 'e', expression: 'Math.E' }],
-	['clear', { display: '', expression: '' }],
-	['backspace', { display: '', expression: '' }],
-	['square', { display: '^2', expression: 'Math.pow(' }],
-	['reciprocal', { display: '1/', expression: '' }],
-	['ceiling', { display: '⌈', expression: 'Math.ceil(' }],
-	['exponent', { display: '*10^', expression: '10 * Math.pow(' }],
-	['remainder', { display: '%', expression: '%' }],
-	['root', { display: '√', expression: 'Math.root(' }],
-	['left_parenthesis', { display: '(', expression: '(' }],
-	['right_parenthesis', { display: ')', expression: ')' }],
-	['factorial', { display: '!', expression: '' }],
-	['division', { display: '/', expression: '/' }],
-	['power', { display: '^', expression: 'Math.pow(' }],
-	['seven', { display: '7', expression: '7' }],
-	['eight', { display: '8', expression: '8' }],
-	['nine', { display: '9', expression: '9' }],
-	['multiplication', { display: '*', expression: '*' }],
-	['ten_power', { display: '10^', expression: 'Math.pow(' }],
-	['four', { display: '4', expression: '4' }],
-	['five', { display: '5', expression: '5' }],
-	['six', { display: '6', expression: '6' }],
-	['subtraction', { display: '-', expression: '-' }],
-	['logarithm', { display: 'log', expression: 'Math.log2(' }],
-	['one', { display: '1', expression: '1' }],
-	['two', { display: '2', expression: '2' }],
-	['three', { display: '3', expression: '3' }],
-	['addition', { display: '+', expression: '+' }],
-	['natural_log', { display: 'ln', expression: 'Math.log2(' }],
-	['sign_change', { display: '±', expression: '' }],
-	['zero', { display: '0', expression: '0' }],
-	['decimal', { display: '.', expression: '.' }],
-	['equals', { display: '=', expression: '' }],
+	['trigonometry_inverse', { display: '' }],
+	['clear', { display: '' }],
+	['backspace', { display: '' }],
+
+	['pi', { display: 'π' }],
+	['euler', { display: 'e' }],
+
+	['square', { display: '^2' }],
+	['reciprocal', { display: '1/' }],
+	['ten_power', { display: '10^' }],
+	['exponent', { display: '*10^' }],
+
+	['root', { display: '√(' }],
+	['factorial', { display: '!' }],
+	['logarithm', { display: 'log(' }],
+	['natural_log', { display: 'ln(' }],
+
+	['power', { display: '^' }],
+	['addition', { display: '+' }],
+	['subtraction', { display: '-' }],
+	['multiplication', { display: '*' }],
+	['division', { display: '/' }],
+	['remainder', { display: '%' }],
+
+	['ceiling', { display: '⌈' }],
+	['left_parenthesis', { display: '(' }],
+	['right_parenthesis', { display: ')' }],
+
+	['zero', { display: '0' }],
+	['one', { display: '1' }],
+	['two', { display: '2' }],
+	['three', { display: '3' }],
+	['four', { display: '4' }],
+	['five', { display: '5' }],
+	['six', { display: '6' }],
+	['seven', { display: '7' }],
+	['eight', { display: '8' }],
+	['nine', { display: '9' }],
+
+	['sign_change', { display: '±' }],
+
+	['decimal', { display: '.' }],
+
+	['equals', { display: '=' }],
 ]);
 
-export { keyMap };
+const operatorMap = {
+	'√': { precedence: 13, operands: 1 },
+	'!': { precedence: 13, operands: 1 },
+	log: { precedence: 13, operands: 1 },
+	ln: { precedence: 13, operands: 1 },
+
+	'^': { precedence: 13, operands: 2 },
+	'+': { precedence: 11, operands: 2 },
+	'-': { precedence: 11, operands: 2 },
+	'*': { precedence: 12, operands: 2 },
+	'/': { precedence: 12, operands: 2 },
+	'%': { precedence: 12, operands: 2 },
+};
+
+const specialValue = {
+	π: `${Math.PI}`,
+	e: `${Math.E}`,
+};
+
+export { keyMap, operatorMap, specialValue };
