@@ -1,7 +1,21 @@
-function factorial(num) {
-	if (num <= 1) return 1;
+const calculatorBoard = document.querySelector('.calculator__board');
 
-	return num * factorial(num - 1);
+function factorial(num) {
+	if (num <= 1n) return 1n;
+
+	return num * factorial(num - 1n);
+}
+
+function insertHistoryCard(preview, answer) {
+	const historyCard = `
+			<button class="history__card">
+				<p class="history__preview">${preview}</p>
+
+				<p class="history__answer">${answer}</p>
+			</button>
+		`;
+
+	calculatorBoard.insertAdjacentHTML('afterbegin', historyCard);
 }
 
 const calculateUnary = (operator, op1) => {
@@ -10,7 +24,7 @@ const calculateUnary = (operator, op1) => {
 			return Math.sqrt(op1);
 
 		case '!':
-			return factorial(op1);
+			return factorial(BigInt(op1));
 
 		case 'log':
 			return Math.log10(op1);
@@ -54,6 +68,7 @@ const isSpecialChar = (value) => /^(π|e)$/.test(value);
 export {
 	calculateBinary,
 	calculateUnary,
+	insertHistoryCard,
 	isClosingBracket,
 	isOpeningBracket,
 	isOperand,

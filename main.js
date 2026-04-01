@@ -1,6 +1,7 @@
 import {
 	calculateBinary,
 	calculateUnary,
+	insertHistoryCard,
 	isClosingBracket,
 	isOpeningBracket,
 	isOperand,
@@ -12,6 +13,14 @@ import { keyMap, operatorMap, specialValue } from './keyMappings.js';
 
 const keypad = document.querySelector('.calculator__keypad');
 const input = document.querySelector('.calculator__input');
+const errorDisplay = document.querySelector('.calculator__error');
+const calculatorBoard = document.querySelector('.calculator__board');
+
+const history = JSON.parse(localStorage.getItem('history')) || [];
+
+for (const [preview, answer] of history) {
+	insertHistoryCard(preview, answer);
+}
 
 const calculator = {
 	expression: [],
@@ -19,6 +28,7 @@ const calculator = {
 	holdingStack: [],
 	solution: [],
 	numString: '',
+	answer: 0,
 
 	handleClick: function (e) {
 		const key = e.target.closest('.calculator__key')?.getAttribute('data-key');
@@ -42,8 +52,8 @@ const calculator = {
 
 		input.value = input.value + keyMap.get(key).display;
 
-		//console.log('Expression', this.expressionExpression
-		// console.expression('HoldingStack', this.holdingStack);
+		// console.log('Expression', this.expressionExpression);
+		// console.log('HoldingStack', this.holdingStack);
 		// console.log('HoldingStack', this.holdingStack);
 		// console.log('Operands', this.operands);
 		// console.log('NumString', this.numString);
@@ -88,14 +98,11 @@ const calculator = {
 				if (this.numString) {
 					this.expression.push(this.numString, '*');
 					this.numString = '';
-				} else if (
-					this.expression.at(-1) === `${Math.PI}` ||
-					this.expression.at(-1) === `${Math.E}`
-				) {
+				} else if (isSpecialChar(this.expression.at(-1))) {
 					this.expression.push('*');
 				}
 
-				this.expression.push(specialValue[value[i]]);
+				this.expression.push(value[i]);
 			} else {
 				throw new Error('Invalid Expression');
 			}
@@ -106,21 +113,24 @@ const calculator = {
 			this.numString == '';
 		}
 
-		console.log(this.expression);
+		// console.log(this.expression);
 	},
 	calculateExpression: function () {
 		try {
 			this.tokenizeExpression();
 
-			console.log('-----------------');
-			console.log('BEFORE ANYTHING');
-			console.log('Expression', this.expression);
-			console.log('HoldingStack', this.holdingStack);
-			console.log('Operands', this.operands);
+			if (!this.expression.length) throw new Error('Please Enter a Expression');
 
-			for (const char of this.expression) {
-				console.log('-----------------');
-				console.log('THIS IS CHAR we working', char);
+			// console.log('-----------------');
+			// console.log('BEFORE ANYTHING');
+			// console.log('Expression', this.expression);
+			// console.log('HoldingStack', this.holdingStack);
+			// console.log('Operands', this.operands);
+
+			for (let char of this.expression) {
+				// console.log('-----------------');
+				// console.log('THIS IS CHAR we working', char);
+				if (isSpecialChar(char)) char = specialValue[char];
 
 				if (isOperand(char)) this.operands.push(char);
 				else if (isOpeningBracket(char)) this.holdingStack.push(char);
@@ -147,27 +157,27 @@ const calculator = {
 					this.holdingStack.push(char);
 				}
 
-				console.log('AFTER EACH CHAR, THIS IS PROCESS');
-				console.log('HoldingStack', this.expression);
-				console.log('HoldingStack', this.holdingStack);
-				console.log('Operands', this.operands);
+				// console.log('AFTER EACH CHAR, THIS IS PROCESS');
+				// console.log('HoldingStack', this.expression);
+				// console.log('HoldingStack', this.holdingStack);
+				// console.log('Operands', this.operands);
 			}
 
-			console.log('-----------------');
-			console.log('THIS IS AFTER FOR LOOP OF EXPRESSION');
-			console.log('Expression', this.expression);
-			console.log('HoldingStack', this.holdingStack);
-			console.log('Operands', this.operands);
+			// console.log('-----------------');
+			// console.log('THIS IS AFTER FOR LOOP OF EXPRESSION');
+			// console.log('Expression', this.expression);
+			// console.log('HoldingStack', this.holdingStack);
+			// console.log('Operands', this.operands);
 
 			while (this.holdingStack.length !== 0) {
 				this.operands.push(this.holdingStack.pop());
 			}
 
-			console.log('-----------------');
-			console.log('FINAL');
-			console.log('Expression', this.expression);
-			console.log('HoldingStack', this.holdingStack);
-			console.log('Operands', this.operands);
+			// console.log('-----------------');
+			// console.log('FINAL');
+			// console.log('Expression', this.expression);
+			// console.log('HoldingStack', this.holdingStack);
+			// console.log('Operands', this.operands);
 
 			for (const char of this.operands) {
 				this.solution.push(char);
@@ -177,7 +187,9 @@ const calculator = {
 					const operand2 = +this.solution.pop();
 					const operand1 = +this.solution.pop();
 
-					this.solution.push(calculateBinary(operator, operand1, operand2));
+					this.solution.push(
+						String(calculateBinary(operator, operand1, operand2)),
+					);
 				} else if (
 					(isSimpleOperator(char) || isSpecialOperator(char)) &&
 					operatorMap[char].operands === 1
@@ -185,33 +197,45 @@ const calculator = {
 					const operator = this.solution.pop();
 					const operand1 = +this.solution.pop();
 
-					this.solution.push(calculateUnary(operator, operand1));
+					this.solution.push(String(calculateUnary(operator, operand1)));
 				}
 			}
 
-			const answer = this.solution.pop();
+			this.answer = this.solution.pop();
 
-			if (answer !== 0 && !answer) {
+			if (
+				['undefined', 'null', 'NaN', undefined, null, NaN].includes(this.answer)
+			) {
 				throw new Error('Invalid Expression');
 			}
 
-			input.value = answer;
+			this.handleHistory();
 
-			console.log('-----------------');
-			console.log('IN THE END');
-			console.log('Expression', this.expression);
-			console.log('HoldingStack', this.holdingStack);
-			console.log('Operands', this.operands);
-			console.log('Solution', this.solution);
+			input.value = this.answer;
+
+			// console.log('-----------------');
+			// console.log('IN THE END');
+			// console.log('Expression', this.expression);
+			// console.log('HoldingStack', this.holdingStack);
+			// console.log('Operands', this.operands);
+			// console.log('Solution', this.solution);
 
 			this.expression = [];
 			this.operands = [];
 			this.holdingStack = [];
 			this.solution = [];
 			this.numString = '';
+			errorDisplay.textContent = '';
 		} catch (error) {
-			document.querySelector('.calculator__error').textContent = error.message;
+			errorDisplay.textContent = error.message;
 		}
+	},
+	handleHistory: function () {
+		history.push([this.expression.join(''), this.answer]);
+
+		insertHistoryCard(this.expression.join(''), this.answer);
+
+		localStorage.setItem('history', JSON.stringify(history));
 	},
 	clearDisplay: function () {
 		input.value = '';
@@ -229,3 +253,11 @@ const calculator = {
 keypad.addEventListener('click', (e) => calculator.handleClick(e));
 
 document.body.addEventListener('keydown', (e) => calculator.handleKeyboard(e));
+
+calculatorBoard.addEventListener('click', function (e) {
+	const value = e.target
+		.closest('.history__card')
+		.querySelector('.history__preview').textContent;
+
+	input.value = value;
+});

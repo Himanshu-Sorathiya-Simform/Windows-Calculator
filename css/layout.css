@@ -15,7 +15,8 @@
 	background-color: var(--background-dark);
 	border-radius: var(--border-radius-medium);
 
-	display: flex;
+	display: grid;
+	grid-template-columns: 3fr 2fr;
 }
 
 .calculator__main {
@@ -181,13 +182,12 @@
 }
 
 .calculator__sidebar {
-	flex: 2;
-
 	padding: var(--space-3);
 
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-6);
+	overflow: hidden;
 
 	.calculator__navbar {
 		font-weight: var(--font-weight-medium);
@@ -227,10 +227,43 @@
 	.calculator__nav-button--active::after {
 		width: 100%;
 	}
+}
 
-	.calculator__board {
-		padding: var(--space-1) var(--space-2);
-		font-size: var(--font-size-sm);
-		font-weight: var(--font-weight-light);
+.calculator__board {
+	padding: var(--space-1) var(--space-2);
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-light);
+
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+
+	.history__card {
+		padding: var(--space-2);
+		background-color: var(--color-gray-dark);
+		text-align: left;
+		border-radius: var(--border-radius-medium);
+
+		&:hover {
+			filter: brightness(130%);
+		}
+
+		&:focus {
+			outline: var(--border-thin) solid var(--color-text-white);
+			border-radius: var(--border-radius-medium);
+		}
+	}
+
+	.history__preview {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		color: var(--color-text-muted);
+		font-size: var(--font-size-md);
+	}
+
+	.history__answer {
+		color: var(--color-text-white);
+		font-size: var(--font-size-xl);
 	}
 }
