@@ -3,7 +3,9 @@ import {
 	calculateUnary,
 	insertHistoryCard,
 	isClosingBracket,
+	isClosingCeil,
 	isOpeningBracket,
+	isOpeningCeil,
 	isOperand,
 	isSimpleOperator,
 	isSpecialChar,
@@ -18,11 +20,12 @@ const calculatorBoard = document.querySelector('.calculator__board');
 
 const history = JSON.parse(localStorage.getItem('history')) || [];
 
-for (const [preview, answer] of history) {
+for (const [preview, answer, expiry] of history) {
 	insertHistoryCard(preview, answer);
 }
 
 const calculator = {
+	isOpenCeil: false,
 	expression: [],
 	operands: [],
 	holdingStack: [],
@@ -50,13 +53,15 @@ const calculator = {
 			return;
 		}
 
-		input.value = input.value + keyMap.get(key).display;
+		if (key === 'ceiling' && this.isCeilOpen) {
+			this.isCeilOpen = false;
+			input.value = input.value + keyMap.get(key).displayClose;
+			return;
+		} else {
+			this.isCeilOpen = true;
+		}
 
-		// console.log('Expression', this.expressionExpression);
-		// console.log('HoldingStack', this.holdingStack);
-		// console.log('HoldingStack', this.holdingStack);
-		// console.log('Operands', this.operands);
-		// console.log('NumString', this.numString);
+		input.value = input.value + keyMap.get(key).display;
 	},
 	handleKeyboard: function (e) {
 		if (e.key === 'Enter' || e.key === '=') {
@@ -72,14 +77,18 @@ const calculator = {
 		for (let i = 0; i < input.value.length; i++) {
 			if (isOperand(value[i]) || value[i] === '.') {
 				this.numString += value[i];
-			} else if (isOpeningBracket(value[i])) {
+			} else if (isOpeningBracket(value[i]) || isOpeningCeil(value[i])) {
 				if (this.numString) {
 					this.expression.push(this.numString, '*');
 					this.numString = '';
 				}
 
 				this.expression.push(value[i]);
-			} else if (isSimpleOperator(value[i]) || isClosingBracket(value[i])) {
+			} else if (
+				isSimpleOperator(value[i]) ||
+				isClosingBracket(value[i]) ||
+				isClosingCeil(value[i])
+			) {
 				if (this.numString) {
 					this.expression.push(this.numString);
 					this.numString = '';
@@ -112,8 +121,6 @@ const calculator = {
 			this.expression.push(this.numString);
 			this.numString == '';
 		}
-
-		// console.log(this.expression);
 	},
 	calculateExpression: function () {
 		try {
@@ -121,19 +128,12 @@ const calculator = {
 
 			if (!this.expression.length) throw new Error('Please Enter a Expression');
 
-			// console.log('-----------------');
-			// console.log('BEFORE ANYTHING');
-			// console.log('Expression', this.expression);
-			// console.log('HoldingStack', this.holdingStack);
-			// console.log('Operands', this.operands);
-
 			for (let char of this.expression) {
-				// console.log('-----------------');
-				// console.log('THIS IS CHAR we working', char);
 				if (isSpecialChar(char)) char = specialValue[char];
 
 				if (isOperand(char)) this.operands.push(char);
-				else if (isOpeningBracket(char)) this.holdingStack.push(char);
+				else if (isOpeningBracket(char) || isOpeningCeil(char))
+					this.holdingStack.push(char);
 				else if (isClosingBracket(char)) {
 					while (
 						this.holdingStack.length &&
@@ -143,6 +143,15 @@ const calculator = {
 					}
 
 					this.holdingStack.pop();
+				} else if (isClosingCeil(char)) {
+					while (
+						this.holdingStack.length &&
+						!isOpeningCeil(this.holdingStack.at(-1))
+					) {
+						this.operands.push(this.holdingStack.pop());
+					}
+
+					this.operands.push(this.holdingStack.pop());
 				} else if (isSimpleOperator(char)) {
 					while (
 						this.holdingStack.length &&
@@ -156,28 +165,11 @@ const calculator = {
 				} else if (isSpecialOperator(char)) {
 					this.holdingStack.push(char);
 				}
-
-				// console.log('AFTER EACH CHAR, THIS IS PROCESS');
-				// console.log('HoldingStack', this.expression);
-				// console.log('HoldingStack', this.holdingStack);
-				// console.log('Operands', this.operands);
 			}
-
-			// console.log('-----------------');
-			// console.log('THIS IS AFTER FOR LOOP OF EXPRESSION');
-			// console.log('Expression', this.expression);
-			// console.log('HoldingStack', this.holdingStack);
-			// console.log('Operands', this.operands);
 
 			while (this.holdingStack.length !== 0) {
 				this.operands.push(this.holdingStack.pop());
 			}
-
-			// console.log('-----------------');
-			// console.log('FINAL');
-			// console.log('Expression', this.expression);
-			// console.log('HoldingStack', this.holdingStack);
-			// console.log('Operands', this.operands);
 
 			for (const char of this.operands) {
 				this.solution.push(char);
@@ -212,13 +204,6 @@ const calculator = {
 			this.handleHistory();
 
 			input.value = this.answer;
-
-			// console.log('-----------------');
-			// console.log('IN THE END');
-			// console.log('Expression', this.expression);
-			// console.log('HoldingStack', this.holdingStack);
-			// console.log('Operands', this.operands);
-			// console.log('Solution', this.solution);
 
 			this.expression = [];
 			this.operands = [];

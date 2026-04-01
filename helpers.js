@@ -20,6 +20,9 @@ function insertHistoryCard(preview, answer) {
 
 const calculateUnary = (operator, op1) => {
 	switch (operator) {
+		case '⌈':
+			return Math.ceil(op1);
+
 		case '√':
 			return Math.sqrt(op1);
 
@@ -57,11 +60,13 @@ const calculateBinary = (operator, op1, op2) => {
 };
 
 const isOperand = (value) => /^\d+(\.\d+)?$/.test(value);
-const isSimpleOperator = (value) => /[√!^+\-*/%]/.test(value);
+const isSimpleOperator = (value) => /[⌈√!^+\-*/%]/.test(value);
 const isSpecialOperator = (value) => /^(log|ln)$/.test(value);
 
 const isOpeningBracket = (value) => /^\($/.test(value);
 const isClosingBracket = (value) => /^\)$/.test(value);
+const isOpeningCeil = (value) => /^\⌈$/.test(value);
+const isClosingCeil = (value) => /^\⌉$/.test(value);
 
 const isSpecialChar = (value) => /^(π|e)$/.test(value);
 
@@ -70,7 +75,9 @@ export {
 	calculateUnary,
 	insertHistoryCard,
 	isClosingBracket,
+	isClosingCeil,
 	isOpeningBracket,
+	isOpeningCeil,
 	isOperand,
 	isSimpleOperator,
 	isSpecialChar,
