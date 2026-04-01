@@ -25,7 +25,7 @@ for (const [preview, answer, expiry] of history) {
 }
 
 const calculator = {
-	isOpenCeil: false,
+	isCeilOpen: false,
 	expression: [],
 	operands: [],
 	holdingStack: [],
@@ -57,11 +57,12 @@ const calculator = {
 			this.isCeilOpen = false;
 			input.value = input.value + keyMap.get(key).displayClose;
 			return;
-		} else {
+		} else if (key === 'ceiling' && !this.isCeilOpen) {
 			this.isCeilOpen = true;
 		}
 
 		input.value = input.value + keyMap.get(key).display;
+		input.focus();
 	},
 	handleKeyboard: function (e) {
 		if (e.key === 'Enter' || e.key === '=') {
@@ -211,6 +212,7 @@ const calculator = {
 			this.solution = [];
 			this.numString = '';
 			errorDisplay.textContent = '';
+			this.isCeilOpen = false;
 		} catch (error) {
 			errorDisplay.textContent = error.message;
 		}

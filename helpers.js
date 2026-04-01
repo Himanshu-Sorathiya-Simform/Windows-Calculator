@@ -81,5 +81,5 @@ export {
 	isOperand,
 	isSimpleOperator,
 	isSpecialChar,
-	isSpecialOperator,
+	isSpecialOperator
 };
