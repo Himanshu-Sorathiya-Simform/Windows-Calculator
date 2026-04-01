@@ -58,10 +58,10 @@
 	align-items: end;
 	gap: var(--space-4);
 
-	.calculator__error,
-	.calculator__preview {
+	.calculator__error {
+		height: 18px;
 		color: var(--color-text-white);
-		font-size: var(--font-size-sm);
+		font-size: var(--font-size-md);
 		font-weight: var(--font-weight-light);
 	}
 
