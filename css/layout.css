@@ -11,14 +11,16 @@
 }
 
 .calculator {
+	position: relative;
+
 	height: 500px;
 	width: min(60rem, 100%);
 	background-color: var(--background-dark);
 	border-radius: var(--border-radius-medium);
 	overflow: hidden;
 
-	display: grid;
-	grid-template-columns: 3fr 2fr;
+	display: flex;
+	gap: var(--space-2);
 }
 
 .calculator__main {
@@ -190,6 +192,8 @@
 }
 
 .calculator__sidebar {
+	flex: 1;
+
 	height: 100%;
 	padding: var(--space-3);
 	overflow: hidden;
@@ -197,6 +201,8 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-6);
+
+	transition: top 150ms ease-in;
 
 	.calculator__navbar {
 		font-weight: var(--font-weight-medium);

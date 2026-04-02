@@ -16,12 +16,29 @@ import { keyMap, operatorMap, specialValue } from './keyMappings.js';
 const keypad = document.querySelector('.calculator__keypad');
 const input = document.querySelector('.calculator__input');
 const errorDisplay = document.querySelector('.calculator__error');
+const calculatorSidebar = document.querySelector('.calculator__sidebar');
 const calculatorBoard = document.querySelector('.calculator__board');
+const historyButton = document.querySelector('.btn--history');
+let isHistoryOpen = false;
 
 const history = JSON.parse(localStorage.getItem('history')) || [];
 
 for (const [preview, answer, expiry] of history) {
 	insertHistoryCard(preview, answer);
+}
+
+function putValueFromHistory(e) {
+	if (e instanceof KeyboardEvent && e.key !== 'Enter') {
+		return;
+	}
+
+	e.stopPropagation();
+
+	const value = e.target
+		.closest('.history__card')
+		.querySelector('.history__preview').textContent;
+
+	input.value = value;
 }
 
 const calculator = {
@@ -241,19 +258,17 @@ keypad.addEventListener('click', (e) => calculator.handleClick(e));
 
 document.body.addEventListener('keydown', (e) => calculator.handleKeyboard(e));
 
-function putValueFromHistory(e) {
-	if (e instanceof KeyboardEvent && e.key !== 'Enter') {
-		return;
-	}
-
-	e.stopPropagation();
-
-	const value = e.target
-		.closest('.history__card')
-		.querySelector('.history__preview').textContent;
-
-	input.value = value;
-}
-
 calculatorBoard.addEventListener('click', (e) => putValueFromHistory(e));
 calculatorBoard.addEventListener('keydown', (e) => putValueFromHistory(e));
+
+historyButton.addEventListener('click', function () {
+	isHistoryOpen = !isHistoryOpen;
+
+	console.log(calculatorSidebar);
+
+	if (isHistoryOpen) {
+		calculatorSidebar.style.top = 200 + 'px';
+	} else {
+		calculatorSidebar.style.top = 100 + '%';
+	}
+});

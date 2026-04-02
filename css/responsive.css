@@ -8,6 +8,10 @@
 	.calculator {
 		width: min(50rem, 100%);
 	}
+
+	.calculator__main {
+		width: 30rem;
+	}
 }
 
 @media (max-width: 768px) {
@@ -21,7 +25,16 @@
 	}
 
 	.calculator__sidebar {
-		display: none;
+		position: absolute;
+		top: 100%;
+
+		height: 300px;
+		width: 100%;
+		background-color: var(--background-dark);
+
+		.calculator__navbar {
+			display: none;
+		}
 	}
 }
 
