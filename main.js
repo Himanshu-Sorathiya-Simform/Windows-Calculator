@@ -241,10 +241,19 @@ keypad.addEventListener('click', (e) => calculator.handleClick(e));
 
 document.body.addEventListener('keydown', (e) => calculator.handleKeyboard(e));
 
-calculatorBoard.addEventListener('click', function (e) {
+function putValueFromHistory(e) {
+	if (e instanceof KeyboardEvent && e.key !== 'Enter') {
+		return;
+	}
+
+	e.stopPropagation();
+
 	const value = e.target
 		.closest('.history__card')
 		.querySelector('.history__preview').textContent;
 
 	input.value = value;
-});
+}
+
+calculatorBoard.addEventListener('click', (e) => putValueFromHistory(e));
+calculatorBoard.addEventListener('keydown', (e) => putValueFromHistory(e));

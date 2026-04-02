@@ -168,6 +168,10 @@
 			outline: var(--border-thin) solid var(--color-text-white);
 			border-radius: var(--border-radius-medium);
 		}
+
+		&:disabled {
+			cursor: not-allowed;
+		}
 	}
 
 	.calculator__key--number {

@@ -38,7 +38,7 @@ const keyMap = new Map([
 	['eight', { display: '8' }],
 	['nine', { display: '9' }],
 
-	['sign_change', { display: '±' }],
+	['sign_change', { displayPlus: '+', displayMinus: '-' }],
 
 	['decimal', { display: '.' }],
 
