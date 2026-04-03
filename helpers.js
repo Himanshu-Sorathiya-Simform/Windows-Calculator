@@ -1,11 +1,13 @@
 const calculatorBoard = document.querySelector('.calculator__board');
 
+// Finding Factorial of any number (Used BigInt to ensure its answer is always accurate)
 function factorial(num) {
 	if (num <= 1n) return 1n;
 
 	return num * factorial(num - 1n);
 }
 
+// Create History Card and add it into history section (aka calculator board)
 function insertHistoryCard(preview, answer) {
 	const historyCard = `
 			<button class="history__card">
@@ -18,56 +20,70 @@ function insertHistoryCard(preview, answer) {
 	calculatorBoard.insertAdjacentHTML('afterbegin', historyCard);
 }
 
-const calculateUnary = (operator, op1) => {
+// Calculation of Unary Operators
+const calculateUnary = (operator, operand) => {
 	switch (operator) {
 		case '⌈':
-			return Math.ceil(op1);
+			return Math.ceil(operand);
 
 		case '√':
-			return Math.sqrt(op1);
+			return Math.sqrt(operand);
 
 		case '!':
-			return factorial(BigInt(op1));
+			if (!Number.isInteger(operand)) {
+				throw new Error('Factorial can only be of integers');
+			}
+
+			return factorial(BigInt(operand));
 
 		case 'log':
-			return Math.log10(op1);
+			return Math.log10(operand);
 
 		case 'ln':
-			return Math.log(op1);
+			return Math.log(operand);
 	}
 };
 
-const calculateBinary = (operator, op1, op2) => {
+// Calculation of Binary Operators
+const calculateBinary = (operator, operand1, operand2) => {
 	switch (operator) {
 		case '^':
-			return op1 ** op2;
+			return operand1 ** operand2;
 
 		case '+':
-			return op1 + op2;
+			return operand1 + operand2;
 
 		case '-':
-			return op1 - op2;
+			return operand1 - operand2;
 
 		case '%':
-			return op1 % op2;
+			return operand1 % operand2;
 
 		case '/':
-			return op1 / op2;
+			return operand1 / operand2;
 
 		case '*':
-			return op1 * op2;
+			return operand1 * operand2;
 	}
 };
 
+// Checking if given value is number or not (15, 17.34 etc)
 const isOperand = (value) => /^\d+(\.\d+)?$/.test(value);
+// Checking if given value is "one character" operator or not
 const isSimpleOperator = (value) => /[⌈√!^+\-*/%]/.test(value);
+// Checking if given value is "multi character" operator (log, ln) or not
 const isSpecialOperator = (value) => /^(log|ln)$/.test(value);
 
+// Checking if given value is opening bracket "(" or not
 const isOpeningBracket = (value) => /^\($/.test(value);
+// Checking if given value is closing bracket or ")" not
 const isClosingBracket = (value) => /^\)$/.test(value);
+// Checking if given value is opening ceil bracket "⌈" or not
 const isOpeningCeil = (value) => /^\⌈$/.test(value);
+// Checking if given value is closing ceil bracket "⌉" or not
 const isClosingCeil = (value) => /^\⌉$/.test(value);
 
+// Checking if given value is "PI" | "EULER" number or not
 const isSpecialChar = (value) => /^(π|e)$/.test(value);
 
 export {
@@ -81,5 +97,5 @@ export {
 	isOperand,
 	isSimpleOperator,
 	isSpecialChar,
-	isSpecialOperator
+	isSpecialOperator,
 };
