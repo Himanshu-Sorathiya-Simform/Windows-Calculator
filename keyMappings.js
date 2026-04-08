@@ -48,7 +48,7 @@ const keyMap = new Map([
 const operatorMap = {
 	'⌈': { precedence: 0, operands: 1 },
 	'√': { precedence: 13, operands: 1 },
-	'!': { precedence: 13, operands: 1 },
+	'!': { precedence: 14, operands: 1 },
 	log: { precedence: 13, operands: 1 },
 	ln: { precedence: 13, operands: 1 },
 

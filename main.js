@@ -17,7 +17,7 @@ const keypad = document.querySelector('.calculator__keypad');
 const input = document.querySelector('.calculator__input');
 const errorDisplay = document.querySelector('.calculator__error');
 const calculatorSidebar = document.querySelector('.calculator__sidebar');
-const calculatorBoard = document.querySelector('.calculator__board');
+const historyBoard = document.querySelector('.calculator__board');
 const historyButton = document.querySelector('.btn--history');
 let isHistoryOpen = false;
 
@@ -98,6 +98,15 @@ const calculator = {
 	},
 	// Handle keyboard keypress
 	handleKeyboard: function (e) {
+		input.focus();
+
+		// If its "Escape" key pressed, clear the display
+		if (e.key === 'Escape') {
+			e.preventDefault();
+
+			this.clearDisplay();
+			return;
+		}
 		// If its "Enter" or "=" key pressed, call calculate expression
 		if (e.key === 'Enter' || e.key === '=') {
 			e.preventDefault();
@@ -384,15 +393,13 @@ keypad.addEventListener('click', (e) => calculator.handleClick(e));
 document.body.addEventListener('keydown', (e) => calculator.handleKeyboard(e));
 
 // Used event delegation on listening to click events on history cards and put expression to input
-calculatorBoard.addEventListener('click', (e) => putValueFromHistory(e));
+historyBoard.addEventListener('click', (e) => putValueFromHistory(e));
 // Used event delegation on listening to keydown events on history cards and put expression to input
-calculatorBoard.addEventListener('keydown', (e) => putValueFromHistory(e));
+historyBoard.addEventListener('keydown', (e) => putValueFromHistory(e));
 
 // History button hide/show based on click (only for small screens)
 historyButton.addEventListener('click', function () {
 	isHistoryOpen = !isHistoryOpen;
-
-	console.log(calculatorSidebar);
 
 	if (isHistoryOpen) {
 		calculatorSidebar.style.top = 200 + 'px';
