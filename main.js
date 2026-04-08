@@ -19,13 +19,14 @@ const errorDisplay = document.querySelector('.calculator__error');
 const calculatorSidebar = document.querySelector('.calculator__sidebar');
 const historyBoard = document.querySelector('.calculator__board');
 const historyButton = document.querySelector('.btn--history');
+const deleteButton = document.querySelector('.calculator__delete');
 let isHistoryOpen = false;
 
 // Get history from local storage
 const history = JSON.parse(localStorage.getItem('history')) || [];
 
 // Generate history cards based on history coming from local storage
-for (const [preview, answer, expiry] of history) {
+for (const [preview, answer] of history) {
 	insertHistoryCard(preview, answer);
 }
 
@@ -44,6 +45,17 @@ function putValueFromHistory(e) {
 		.querySelector('.history__preview').textContent;
 
 	input.value = value;
+}
+
+// Remove from local storage
+// Empty existing history board because as localstorage is not reflective, have to do it manually for current session
+// Empty existing history array
+function clearHistory(e) {
+	localStorage.clear();
+
+	historyBoard.innerHTML = '';
+
+	while (history.length) history.pop();
 }
 
 const calculator = {
@@ -98,7 +110,8 @@ const calculator = {
 	},
 	// Handle keyboard keypress
 	handleKeyboard: function (e) {
-		input.focus();
+		// Give focus only when its not "Tab"
+		if (e.key !== 'Tab') input.focus();
 
 		// If its "Escape" key pressed, clear the display
 		if (e.key === 'Escape') {
@@ -396,6 +409,8 @@ document.body.addEventListener('keydown', (e) => calculator.handleKeyboard(e));
 historyBoard.addEventListener('click', (e) => putValueFromHistory(e));
 // Used event delegation on listening to keydown events on history cards and put expression to input
 historyBoard.addEventListener('keydown', (e) => putValueFromHistory(e));
+
+deleteButton.addEventListener('click', (e) => clearHistory(e));
 
 // History button hide/show based on click (only for small screens)
 historyButton.addEventListener('click', function () {

@@ -210,6 +210,18 @@
 		display: flex;
 		align-items: center;
 		gap: var(--space-8);
+
+		.calculator__delete {
+			padding: var(--space-1);
+			color: var(--color-text-white);
+			margin: 0 0 0 auto;
+
+			&:focus,
+			&:hover {
+				outline: var(--border-thin) solid var(--color-text-white);
+				border-radius: var(--border-radius-medium);
+			}
+		}
 	}
 
 	.calculator__nav-button {
