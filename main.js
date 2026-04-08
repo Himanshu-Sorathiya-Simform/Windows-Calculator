@@ -10,6 +10,8 @@ import {
 	isSimpleOperator,
 	isSpecialChar,
 	isSpecialOperator,
+	isUnaryMinus,
+	isUnaryPlus,
 } from './helpers.js';
 import { keyMap, operatorMap, specialValue } from './keyMappings.js';
 
@@ -80,12 +82,14 @@ const calculator = {
 		// If "C" clicked, call clear display
 		if (key === 'clear') {
 			this.clearDisplay();
+			errorDisplay.textContent = '';
 			return;
 		}
 
 		// If "backspace" clicked, call handle backspace
 		if (key === 'backspace') {
 			this.handleBackspace();
+			errorDisplay.textContent = '';
 			return;
 		}
 
@@ -165,6 +169,21 @@ const calculator = {
 				}
 
 				this.expression.push(value[i]);
+			}
+			// If its Unary operator [ eg: at start of expression, after bracket insertion, after any operator ], and numString is empty (if theres num string it can never be unary)
+			else if (
+				(isUnaryMinus(value[i]) || isUnaryPlus(value[i])) &&
+				!this.numString &&
+				(this.expression.length === 0 ||
+					isSimpleOperator(this.expression.at(-1)) ||
+					isSpecialOperator(this.expression.at(-1)) ||
+					isUnaryPlus(this.expression.at(-1)) ||
+					isUnaryPlus(this.expression.at(-1)) ||
+					isOpeningBracket(this.expression.at(-1)) ||
+					isOpeningCeil(this.expression.at(-1)))
+			) {
+				if (isUnaryMinus(value[i])) this.expression.push('UM');
+				if (isUnaryPlus(value[i])) this.expression.push('UP');
 			}
 			// Check for any "single character operator" [ eg: + - ! ... ] or any closing bracket [ eg: ")" "⌉" ]
 			else if (
@@ -296,6 +315,18 @@ const calculator = {
 
 					this.holdingStack.push(char);
 				}
+				// If its "Unary" character then pop from holding stack and push to operands till first same or high precedence operator found
+				else if (isUnaryPlus(char) || isUnaryMinus(char)) {
+					while (
+						this.holdingStack.length &&
+						operatorMap[char].precedence <
+							operatorMap[this.holdingStack.at(-1)]?.precedence
+					) {
+						this.operands.push(this.holdingStack.pop());
+					}
+
+					this.holdingStack.push(char);
+				}
 				// If its special operator [ eg: "log" "ln" ], directly add to holding stack
 				else if (isSpecialOperator(char)) {
 					this.holdingStack.push(char);
@@ -332,7 +363,10 @@ const calculator = {
 				}
 				// If its "single character operator" or "special operator" and requires 1 operands [ eg: "!" "√" "log" ... ]
 				else if (
-					(isSimpleOperator(char) || isSpecialOperator(char)) &&
+					(isSimpleOperator(char) ||
+						isSpecialOperator(char) ||
+						isUnaryMinus(char) ||
+						isUnaryPlus(char)) &&
 					operatorMap[char].operands === 1
 				) {
 					// [ eg: ORIGINAL "log5" "√25" ]
@@ -354,6 +388,12 @@ const calculator = {
 			// At any point, if it became any of these, its an error, throw it
 			if (['undefined', 'null', 'NaN', undefined, null, NaN].includes(this.answer))
 				throw new Error('Please Enter valid Expression');
+
+			this.expression = this.expression.map((expr) => {
+				if (expr === 'UM') return '-';
+				if (expr === 'UP') return '+';
+				return expr;
+			});
 
 			// Else its success, call handleHistory function to update history
 			this.handleHistory();

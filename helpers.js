@@ -2,9 +2,9 @@ const calculatorBoard = document.querySelector('.calculator__board');
 
 // Finding Factorial of any number (Used BigInt to ensure its answer is always accurate)
 function factorial(num) {
-	if (num <= 1n) return 1n;
+	if (num <= 1) return 1;
 
-	return num * factorial(num - 1n);
+	return num * factorial(num - 1);
 }
 
 // Create History Card and add it into history section (aka calculator board)
@@ -23,6 +23,12 @@ function insertHistoryCard(preview, answer) {
 // Calculation of Unary Operators
 const calculateUnary = (operator, operand) => {
 	switch (operator) {
+		case 'UM':
+			return -1 * operand;
+
+		case 'UP':
+			return +1 * operand;
+
 		case '⌈':
 			return Math.ceil(operand);
 
@@ -34,7 +40,7 @@ const calculateUnary = (operator, operand) => {
 				throw new Error('Factorial can only be of integers');
 			}
 
-			return factorial(BigInt(operand));
+			return factorial(operand);
 
 		case 'log':
 			return Math.log10(operand);
@@ -74,6 +80,9 @@ const isSimpleOperator = (value) => /[⌈√!^+\-*/%]/.test(value);
 // Checking if given value is "multi character" operator (log, ln) or not
 const isSpecialOperator = (value) => /^(log|ln)$/.test(value);
 
+const isUnaryMinus = (value) => /[-|UM]/.test(value);
+const isUnaryPlus = (value) => /[+|UP]/.test(value);
+
 // Checking if given value is opening bracket "(" or not
 const isOpeningBracket = (value) => /^\($/.test(value);
 // Checking if given value is closing bracket or ")" not
@@ -98,4 +107,6 @@ export {
 	isSimpleOperator,
 	isSpecialChar,
 	isSpecialOperator,
+	isUnaryMinus,
+	isUnaryPlus,
 };
