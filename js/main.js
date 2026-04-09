@@ -1,4 +1,8 @@
-import { insertHistoryCard, putValueFromHistory } from './handlers/historyHandler.js';
+import {
+	clearHistory,
+	insertHistoryCard,
+	putValueFromHistory,
+} from './handlers/historyHandler.js';
 import { calculator } from './modules/calculator.js';
 
 const keypad = document.querySelector('.calculator__keypad');
