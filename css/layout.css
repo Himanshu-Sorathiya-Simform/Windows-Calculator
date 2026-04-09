@@ -13,7 +13,7 @@
 .calculator {
 	position: relative;
 
-	height: 500px;
+	height: 31rem;
 	width: min(60rem, 100%);
 	background-color: var(--background-dark);
 	border-radius: var(--border-radius-medium);
