@@ -1,4 +1,5 @@
 const calculatorBoard = document.querySelector('.calculator__board');
+const historyBoard = document.querySelector('.calculator__board');
 const input = document.querySelector('.calculator__input');
 
 function insertHistoryCard(preview, answer) {
