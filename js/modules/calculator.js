@@ -1,4 +1,4 @@
-import { keyMap } from '../keyMappings.js';
+import { keyMap, operatorMap } from '../keyMappings.js';
 import { history } from '../main.js';
 
 import { buildPostfixExpression } from './postfix.js';
@@ -17,11 +17,10 @@ const calculator = {
 	isCeilOpen: false,
 	answer: 0,
 
-	addNumber: function (...args) {
-		if (this.numString) {
-			this.expression.push(this.numString, ...args);
-			this.numString = '';
-		}
+	getLasNumber: function () {
+		const match = input.value.match(/[\d.]+$/);
+
+		return match ? match[0] : '';
 	},
 	handleClick: function (e) {
 		const key = e.target.closest('.calculator__key')?.getAttribute('data-key');
@@ -42,6 +41,27 @@ const calculator = {
 
 		if (key === 'equals') {
 			this.calculateExpression();
+			return;
+		}
+
+		if (
+			input.value &&
+			(['reciprocal', 'ten_power', 'root', 'logarithm', 'natural_log'].includes(
+				key,
+			) ||
+				(key === 'ceiling' && !this.isCeilOpen)) &&
+			!operatorMap[input.value.at(-1)]
+		) {
+			const num = this.getLasNumber();
+
+			input.value =
+				input.value.slice(0, -num.length) + keyMap.get(key).display + num;
+
+			if (['logarithm', 'natural_log', 'root'].includes(key))
+				input.value += keyMap.get('right_parenthesis').display;
+
+			if (key === 'ceiling') input.value += keyMap.get('ceiling').displayClose;
+
 			return;
 		}
 
@@ -72,6 +92,14 @@ const calculator = {
 			this.calculateExpression();
 			return;
 		}
+
+		const isControlKey = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete'].includes(
+			e.key,
+		);
+
+		if (/[a-zA-Z]/.test(e.key) && !isControlKey) {
+			e.preventDefault();
+		}
 	},
 	calculateExpression: function () {
 		this.expression = [];
@@ -95,7 +123,6 @@ const calculator = {
 			errorDisplay.textContent = '';
 		} catch (error) {
 			errorDisplay.textContent = error.message;
-			throw new Error(error);
 		} finally {
 			this.expression = [];
 			this.postfix = [];

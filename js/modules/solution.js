@@ -24,6 +24,8 @@ function solveExpression(expression) {
 		}
 	}
 
+	if (solution.length !== 1) throw new Error('Please Enter valid Expression');
+
 	const answer = solution.pop();
 
 	if (['undefined', 'null', 'NaN', undefined, null, NaN].includes(answer))

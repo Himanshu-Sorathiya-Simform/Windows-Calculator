@@ -32,8 +32,6 @@ function clearHistory(e) {
 	localStorage.clear();
 
 	historyBoard.innerHTML = '';
-
-	while (history.length) history.pop();
 }
 
 export { clearHistory, insertHistoryCard, putValueFromHistory };

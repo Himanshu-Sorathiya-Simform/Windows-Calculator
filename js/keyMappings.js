@@ -50,6 +50,8 @@ const operatorMap = {
 	')': { precedence: 0, operands: 0 },
 
 	'⌈': { precedence: 0, operands: 1 },
+	'⌉': { precedence: 0, operands: 1 },
+
 	'√': { precedence: 13, operands: 1 },
 	'!': { precedence: 14, operands: 1 },
 	log: { precedence: 13, operands: 1 },
