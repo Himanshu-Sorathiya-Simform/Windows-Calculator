@@ -190,6 +190,40 @@
 			filter: brightness(90%);
 		}
 	}
+
+	.calculator__key:is(
+		[data-key='cube_root'],
+		[data-key='cube'],
+		[data-key='two_power']
+	) {
+		display: none;
+	}
+
+	.calculator__key:is(
+		[data-key='square_root'],
+		[data-key='square'],
+		[data-key='ten_power']
+	) {
+		display: flex;
+	}
+
+	&.hide {
+		.calculator__key:is(
+			[data-key='cube_root'],
+			[data-key='cube'],
+			[data-key='two_power']
+		) {
+			display: flex;
+		}
+
+		.calculator__key:is(
+			[data-key='square_root'],
+			[data-key='square'],
+			[data-key='ten_power']
+		) {
+			display: none;
+		}
+	}
 }
 
 .calculator__sidebar {

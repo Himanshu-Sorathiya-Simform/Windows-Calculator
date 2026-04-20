@@ -10,12 +10,8 @@ import { insertHistoryCard } from '../handlers/historyHandler.js';
 const input = document.querySelector('.calculator__input');
 const errorDisplay = document.querySelector('.calculator__error');
 
-const squareButton = document.querySelector('[data-key="square"]');
-const cubeButton = document.querySelector('[data-key="cube"]');
-const squareRootButton = document.querySelector('[data-key="square_root"]');
-const cubeRootButton = document.querySelector('[data-key="cube_root"]');
-const tenPowerButton = document.querySelector('[data-key="ten_power"]');
-const twoPowerButton = document.querySelector('[data-key="two_power"]');
+const keypad = document.querySelector('.calculator__keypad');
+const keypadInverseButton = document.querySelector('[data-key="inverse"]');
 
 const calculator = {
 	expression: [],
@@ -33,12 +29,8 @@ const calculator = {
 		if (!key) return;
 
 		if (key === 'inverse') {
-			squareButton.classList.toggle('hidden');
-			cubeButton.classList.toggle('hidden');
-			squareRootButton.classList.toggle('hidden');
-			cubeRootButton.classList.toggle('hidden');
-			tenPowerButton.classList.toggle('hidden');
-			twoPowerButton.classList.toggle('hidden');
+			keypad.classList.toggle('hide');
+			keypadInverseButton.classList.toggle('calculator__key--accent');
 
 			return;
 		}
