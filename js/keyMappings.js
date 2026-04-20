@@ -7,11 +7,14 @@ const keyMap = new Map([
 	['euler', { display: 'e' }],
 
 	['square', { display: '^2' }],
+	['cube', { display: '^3' }],
 	['reciprocal', { display: '1/' }],
 	['ten_power', { display: '10^' }],
+	['two_power', { display: '2^' }],
 	['exponent', { display: '*10^' }],
 
-	['root', { display: '√(' }],
+	['square_root', { display: '²√(' }],
+	['cube_root', { display: '³√(' }],
 	['factorial', { display: '!' }],
 	['logarithm', { display: 'log(' }],
 	['natural_log', { display: 'ln(' }],
@@ -48,7 +51,8 @@ const operatorMap = {
 	'(': { precedence: 0, operands: 0 },
 	')': { precedence: 0, operands: 0 },
 
-	'√': { precedence: 13, operands: 1 },
+	'²√': { precedence: 13, operands: 1 },
+	'³√': { precedence: 13, operands: 1 },
 	'!': { precedence: 14, operands: 1 },
 	log: { precedence: 13, operands: 1 },
 	ln: { precedence: 13, operands: 1 },

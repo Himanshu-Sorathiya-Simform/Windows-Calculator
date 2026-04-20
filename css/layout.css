@@ -153,6 +153,7 @@
 	.calculator__key {
 		height: 100%;
 		padding: var(--space-2);
+		font-size: 1.2rem;
 		border-radius: var(--border-radius-medium);
 		background-color: var(--color-gray-dark);
 
@@ -302,4 +303,8 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
+}
+
+.hidden.hidden {
+	display: none;
 }

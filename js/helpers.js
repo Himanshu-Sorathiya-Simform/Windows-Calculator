@@ -15,8 +15,11 @@ const calculateUnary = (operator, operand) => {
 		case '⌈':
 			return Math.ceil(operand);
 
-		case '√':
+		case '²√':
 			return Math.sqrt(operand);
+
+		case '³√':
+			return Math.pow(operand, 1 / 3);
 
 		case '!':
 			if (!Number.isInteger(operand)) {

@@ -9,15 +9,12 @@ function solveExpression(expression) {
 
 		if (operatorMap[char]?.operands === 2) {
 			const operator = solution.pop();
-
 			const operand2 = +solution.pop();
-
 			const operand1 = +solution.pop();
 
 			solution.push(String(calculateBinary(operator, operand1, operand2)));
 		} else if (operatorMap[char]?.operands === 1) {
 			const operator = solution.pop();
-
 			const operand = +solution.pop();
 
 			solution.push(String(calculateUnary(operator, operand)));

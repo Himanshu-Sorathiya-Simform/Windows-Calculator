@@ -1,6 +1,6 @@
 import { operatorMap } from '../keyMappings.js';
 
-const TOKEN_REGEX = /\d+(\.\d+)?|log|ln|[()^+\-*/!]/g;
+const TOKEN_REGEX = /\d+(\.\d+)?|log|ln|³√|²√|[()^+\-*/!]/g;
 
 function isNumber(token) {
 	return /^\d+(\.\d+)?$/.test(token);
@@ -11,7 +11,7 @@ function isOperator(token) {
 }
 
 function isFunction(token) {
-	return token === 'log' || token === 'ln';
+	return token === 'log' || token === 'ln' || token === '²√' || token === '³√';
 }
 
 function tokenizeExpression(input) {
@@ -36,17 +36,11 @@ function tokenizeExpression(input) {
 			}
 
 			tokens.push(token);
-		} else if (token === ')') {
-			roundBrackets--;
-
-			if (roundBrackets < 0) {
-				throw new Error('Mismatched brackets');
-			}
-
-			tokens.push(token);
 		} else if (token === '+' || token === '-') {
 			if (!prev || isOperator(prev)) {
 				tokens.push(token === '+' ? 'UP' : 'UM');
+			} else {
+				tokens.push(token);
 			}
 		} else if (token === '!') {
 			if (!prev || (!isNumber(prev) && prev !== ')')) {
@@ -67,6 +61,8 @@ function tokenizeExpression(input) {
 
 			tokens.push(token);
 		} else if (isOperator(token)) {
+			if (token === ')') roundBrackets--;
+
 			tokens.push(token);
 		} else {
 			throw new Error('Invalid Expression');

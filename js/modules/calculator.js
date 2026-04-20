@@ -10,10 +10,16 @@ import { insertHistoryCard } from '../handlers/historyHandler.js';
 const input = document.querySelector('.calculator__input');
 const errorDisplay = document.querySelector('.calculator__error');
 
+const squareButton = document.querySelector('[data-key="square"]');
+const cubeButton = document.querySelector('[data-key="cube"]');
+const squareRootButton = document.querySelector('[data-key="square_root"]');
+const cubeRootButton = document.querySelector('[data-key="cube_root"]');
+const tenPowerButton = document.querySelector('[data-key="ten_power"]');
+const twoPowerButton = document.querySelector('[data-key="two_power"]');
+
 const calculator = {
 	expression: [],
 	postfix: [],
-	solution: [],
 	answer: 0,
 
 	getLastNumber: function () {
@@ -25,6 +31,17 @@ const calculator = {
 		const key = e.target.closest('.calculator__key')?.getAttribute('data-key');
 
 		if (!key) return;
+
+		if (key === 'inverse') {
+			squareButton.classList.toggle('hidden');
+			cubeButton.classList.toggle('hidden');
+			squareRootButton.classList.toggle('hidden');
+			cubeRootButton.classList.toggle('hidden');
+			tenPowerButton.classList.toggle('hidden');
+			twoPowerButton.classList.toggle('hidden');
+
+			return;
+		}
 
 		if (key === 'clear') {
 			this.clearDisplay();
@@ -45,9 +62,15 @@ const calculator = {
 
 		if (
 			input.value &&
-			['reciprocal', 'ten_power', 'root', 'logarithm', 'natural_log'].includes(
-				key,
-			) &&
+			[
+				'reciprocal',
+				'ten_power',
+				'two_power',
+				'square_root',
+				'cube_root',
+				'logarithm',
+				'natural_log',
+			].includes(key) &&
 			!operatorMap[input.value.at(-1)]
 		) {
 			const num = this.getLastNumber();
@@ -55,7 +78,7 @@ const calculator = {
 			input.value =
 				input.value.slice(0, -num.length) + keyMap.get(key).display + num;
 
-			if (['logarithm', 'natural_log', 'root'].includes(key))
+			if (['logarithm', 'natural_log', 'square_root', 'cube_root'].includes(key))
 				input.value += keyMap.get('right_parenthesis').display;
 
 			return;
@@ -101,8 +124,6 @@ const calculator = {
 
 			this.answer = solveExpression(this.postfix);
 
-			this.expression = input.value;
-
 			this.handleHistory();
 
 			input.value = this.answer;
@@ -110,17 +131,13 @@ const calculator = {
 			errorDisplay.textContent = '';
 		} catch (error) {
 			errorDisplay.textContent = error.message;
-		} finally {
-			this.expression = [];
-			this.postfix = [];
-			this.numString = '';
 		}
 	},
 	handleHistory: function () {
-		history.push([this.expression, this.answer]);
+		const expr = this.expression.join('');
 
-		insertHistoryCard(this.expression, this.answer);
-
+		history.push([expr, this.answer]);
+		insertHistoryCard(expr, this.answer);
 		localStorage.setItem('history', JSON.stringify(history));
 	},
 	clearDisplay: function () {

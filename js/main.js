@@ -32,7 +32,7 @@ toggleHistoryViewButton.addEventListener('click', function () {
 	isHistoryOpen = !isHistoryOpen;
 
 	if (isHistoryOpen) {
-		calculatorSidebar.style.top = 12 + 'rem';
+		calculatorSidebar.style.top = 10 + 'rem';
 	} else {
 		calculatorSidebar.style.top = 100 + '%';
 	}

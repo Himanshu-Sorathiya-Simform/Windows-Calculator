@@ -8,19 +8,13 @@ function buildPostfixExpression(expression) {
 		if (specialValue[char]) char = specialValue[char];
 
 		if (/^\d+(\.\d+)?$/.test(char)) operands.push(char);
-		else if (char === '(' || char === '⌈') holdingStack.push(char);
+		else if (char === '(') holdingStack.push(char);
 		else if (char === ')') {
 			while (holdingStack.length && holdingStack.at(-1) !== '(') {
 				operands.push(holdingStack.pop());
 			}
 
 			holdingStack.pop();
-		} else if (char === '⌉') {
-			while (holdingStack.length && holdingStack.at(-1) !== '⌈') {
-				operands.push(holdingStack.pop());
-			}
-
-			operands.push(holdingStack.pop());
 		} else if (char === 'UM' || char === 'UP') {
 			while (
 				holdingStack.length &&
@@ -29,7 +23,6 @@ function buildPostfixExpression(expression) {
 			) {
 				operands.push(holdingStack.pop());
 			}
-
 			holdingStack.push(char);
 		} else if (operatorMap[char]) {
 			while (
