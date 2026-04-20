@@ -14,10 +14,9 @@ const calculator = {
 	expression: [],
 	postfix: [],
 	solution: [],
-	isCeilOpen: false,
 	answer: 0,
 
-	getLasNumber: function () {
+	getLastNumber: function () {
 		const match = input.value.match(/[\d.]+$/);
 
 		return match ? match[0] : '';
@@ -46,13 +45,12 @@ const calculator = {
 
 		if (
 			input.value &&
-			(['reciprocal', 'ten_power', 'root', 'logarithm', 'natural_log'].includes(
+			['reciprocal', 'ten_power', 'root', 'logarithm', 'natural_log'].includes(
 				key,
-			) ||
-				(key === 'ceiling' && !this.isCeilOpen)) &&
+			) &&
 			!operatorMap[input.value.at(-1)]
 		) {
-			const num = this.getLasNumber();
+			const num = this.getLastNumber();
 
 			input.value =
 				input.value.slice(0, -num.length) + keyMap.get(key).display + num;
@@ -60,17 +58,7 @@ const calculator = {
 			if (['logarithm', 'natural_log', 'root'].includes(key))
 				input.value += keyMap.get('right_parenthesis').display;
 
-			if (key === 'ceiling') input.value += keyMap.get('ceiling').displayClose;
-
 			return;
-		}
-
-		if (key === 'ceiling' && this.isCeilOpen) {
-			this.isCeilOpen = false;
-			input.value = input.value + keyMap.get(key).displayClose;
-			return;
-		} else if (key === 'ceiling' && !this.isCeilOpen) {
-			this.isCeilOpen = true;
 		}
 
 		input.value = input.value + keyMap.get(key).display;
@@ -104,7 +92,6 @@ const calculator = {
 	calculateExpression: function () {
 		this.expression = [];
 		this.postfix = [];
-		this.isCeilOpen = false;
 		this.answer = 0;
 
 		try {
@@ -127,7 +114,6 @@ const calculator = {
 			this.expression = [];
 			this.postfix = [];
 			this.numString = '';
-			this.isCeilOpen = false;
 		}
 	},
 	handleHistory: function () {

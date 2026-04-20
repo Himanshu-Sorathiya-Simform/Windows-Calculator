@@ -23,7 +23,6 @@ const keyMap = new Map([
 	['division', { display: '/' }],
 	['remainder', { display: '%' }],
 
-	['ceiling', { display: '⌈', displayClose: '⌉' }],
 	['left_parenthesis', { display: '(' }],
 	['right_parenthesis', { display: ')' }],
 
@@ -48,9 +47,6 @@ const keyMap = new Map([
 const operatorMap = {
 	'(': { precedence: 0, operands: 0 },
 	')': { precedence: 0, operands: 0 },
-
-	'⌈': { precedence: 0, operands: 1 },
-	'⌉': { precedence: 0, operands: 1 },
 
 	'√': { precedence: 13, operands: 1 },
 	'!': { precedence: 14, operands: 1 },
