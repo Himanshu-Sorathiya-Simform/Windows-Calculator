@@ -142,6 +142,24 @@
 		}
 	}
 
+	.calculator__dropdown--trigonometry-functions {
+		position: relative;
+
+		.trigonometry-functions-wrapper {
+			width: 200%;
+			position: absolute;
+			top: 100%;
+			left: -5%;
+
+			padding: 0.5rem;
+			background-color: var(--background-dark);
+
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 3px;
+		}
+	}
+
 	.calculator__dropdown--math-functions {
 		position: relative;
 

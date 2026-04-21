@@ -57,6 +57,42 @@ function applyFunction(answer, expression, func) {
 				expression.unshift('[');
 				expression.push(']');
 				break;
+
+			case 'sin':
+				answer = Math.sin(answer / (180 / Math.PI));
+				expression.unshift('sin(');
+				expression.push(')');
+				break;
+
+			case 'cos':
+				answer = Math.cos(answer / (180 / Math.PI));
+				expression.unshift('cos(');
+				expression.push(')');
+				break;
+
+			case 'tan':
+				answer = Math.tan(answer / (180 / Math.PI));
+				expression.unshift('tan(');
+				expression.push(')');
+				break;
+
+			case 'sec':
+				answer = 1 / Math.cos(answer / (180 / Math.PI));
+				expression.unshift('sec(');
+				expression.push(')');
+				break;
+
+			case 'cosec':
+				answer = 1 / Math.sin(answer / (180 / Math.PI));
+				expression.unshift('cosec(');
+				expression.push(')');
+				break;
+
+			case 'cot':
+				answer = 1 / Math.tan(answer / (180 / Math.PI));
+				expression.unshift('cot(');
+				expression.push(')');
+				break;
 		}
 	}
 

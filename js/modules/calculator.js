@@ -52,7 +52,20 @@ const calculator = {
 			return;
 		}
 
-		if (['absolute', 'ceil', 'floor', 'round'].includes(key)) {
+		if (
+			[
+				'absolute',
+				'ceil',
+				'floor',
+				'round',
+				'sin',
+				'cos',
+				'tan',
+				'cosec',
+				'sec',
+				'cot',
+			].includes(key)
+		) {
 			this.calculateExpression(key);
 			return;
 		}
