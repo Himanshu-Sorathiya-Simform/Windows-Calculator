@@ -52,6 +52,11 @@ const calculator = {
 			return;
 		}
 
+		if (['absolute', 'ceil', 'floor'].includes(key)) {
+			this.calculateExpression(key);
+			return;
+		}
+
 		if (
 			input.value &&
 			[
@@ -104,7 +109,7 @@ const calculator = {
 			e.preventDefault();
 		}
 	},
-	calculateExpression: function () {
+	calculateExpression: function (func) {
 		this.expression = [];
 		this.postfix = [];
 		this.answer = 0;
@@ -114,7 +119,11 @@ const calculator = {
 
 			this.postfix = buildPostfixExpression(this.expression);
 
-			this.answer = solveExpression(this.postfix);
+			[this.answer, this.expression] = solveExpression(
+				this.postfix,
+				this.expression,
+				func,
+			);
 
 			this.handleHistory();
 
@@ -126,7 +135,13 @@ const calculator = {
 		}
 	},
 	handleHistory: function () {
-		const expr = this.expression.join('');
+		const expr = this.expression
+			.map((t) =>
+				t === 'UM' ? '-'
+				: t === 'UP' ? '+'
+				: t,
+			)
+			.join('');
 
 		history.push([expr, this.answer]);
 		insertHistoryCard(expr, this.answer);

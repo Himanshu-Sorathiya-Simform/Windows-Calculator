@@ -1,6 +1,6 @@
-import { operatorMap } from '../keyMappings.js';
+import { operatorMap, specialValue } from '../keyMappings.js';
 
-const TOKEN_REGEX = /\d+(\.\d+)?|log|ln|³√|²√|[()^+\-*/!]/g;
+const TOKEN_REGEX = /\d+(\.\d+)?|log|ln|³√|²√|[()^+\-*/!πe]/g;
 
 function isNumber(token) {
 	return /^\d+(\.\d+)?$/.test(token);
@@ -8,6 +8,10 @@ function isNumber(token) {
 
 function isOperator(token) {
 	return !!operatorMap[token];
+}
+
+function isSpecialValue(token) {
+	return !!specialValue[token];
 }
 
 function isFunction(token) {
@@ -62,6 +66,12 @@ function tokenizeExpression(input) {
 			tokens.push(token);
 		} else if (isOperator(token)) {
 			if (token === ')') roundBrackets--;
+
+			tokens.push(token);
+		} else if (isSpecialValue(token)) {
+			if (prev && (isNumber(prev) || isSpecialValue(prev))) {
+				tokens.push('*');
+			}
 
 			tokens.push(token);
 		} else {
