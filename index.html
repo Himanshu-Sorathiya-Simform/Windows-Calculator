@@ -68,14 +68,41 @@
 							</svg>
 						</button>
 
-						<button class="calculator__dropdown">
+						<div
+							class="calculator__dropdown calculator__dropdown--math-functions">
 							<span>Function</span>
 
 							<svg class="icon__small">
 								<use
 									href="assets/icons/ui_icons_sprite.svg#chevron-down"></use>
 							</svg>
-						</button>
+
+							<div class="math-functions-wrapper">
+								<button
+									data-key="floor"
+									class="calculator__key calculator__key--function">
+									⌊x⌋
+								</button>
+
+								<button
+									data-key="ceil"
+									class="calculator__key calculator__key--function">
+									⌈x⌉
+								</button>
+
+								<button
+									data-key="round"
+									class="calculator__key calculator__key--function">
+									[x]
+								</button>
+
+								<button
+									data-key="random"
+									class="calculator__key calculator__key--function">
+									random
+								</button>
+							</div>
+						</div>
 					</div>
 
 					<div class="calculator__keypad">

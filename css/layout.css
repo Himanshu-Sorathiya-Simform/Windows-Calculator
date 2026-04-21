@@ -141,6 +141,24 @@
 			border-radius: var(--border-radius-medium);
 		}
 	}
+
+	.calculator__dropdown--math-functions {
+		position: relative;
+
+		.math-functions-wrapper {
+			width: 200%;
+			position: absolute;
+			top: 100%;
+			left: -50%;
+
+			padding: 0.5rem;
+			background-color: var(--background-dark);
+
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 3px;
+		}
+	}
 }
 
 .calculator__keypad {
@@ -149,54 +167,68 @@
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	gap: 3px;
+}
 
-	.calculator__key {
-		height: 100%;
-		padding: var(--space-2);
-		font-size: 1.2rem;
+.calculator__key {
+	height: 100%;
+	padding: var(--space-2);
+	font-size: 1.2rem;
+	border-radius: var(--border-radius-medium);
+	background-color: var(--color-gray-dark);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	transition: background-color 150ms linear;
+
+	&:hover {
+		filter: brightness(130%);
+	}
+
+	&:focus {
+		outline: var(--border-thin) solid var(--color-text-white);
 		border-radius: var(--border-radius-medium);
-		background-color: var(--color-gray-dark);
-
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		transition: background-color 150ms linear;
-
-		&:hover {
-			filter: brightness(130%);
-		}
-
-		&:focus {
-			outline: var(--border-thin) solid var(--color-text-white);
-			border-radius: var(--border-radius-medium);
-		}
-
-		&:disabled {
-			cursor: not-allowed;
-		}
 	}
 
-	.calculator__key--number {
-		font-weight: var(--font-weight-semibold);
-		background-color: var(--color-gray-light);
+	&:disabled {
+		cursor: not-allowed;
 	}
+}
 
-	.calculator__key--accent {
-		background-color: var(--color-accent);
-		color: var(--background-dark);
+.calculator__key--number {
+	font-weight: var(--font-weight-semibold);
+	background-color: var(--color-gray-light);
+}
 
-		&:hover {
-			filter: brightness(90%);
-		}
+.calculator__key--accent {
+	background-color: var(--color-accent);
+	color: var(--background-dark);
+
+	&:hover {
+		filter: brightness(90%);
 	}
+}
 
+.calculator__key:is([data-key='cube_root'], [data-key='cube'], [data-key='two_power']) {
+	display: none;
+}
+
+.calculator__key:is(
+	[data-key='square_root'],
+	[data-key='square'],
+	[data-key='ten_power']
+) {
+	display: flex;
+}
+
+&.hide {
 	.calculator__key:is(
 		[data-key='cube_root'],
 		[data-key='cube'],
 		[data-key='two_power']
 	) {
-		display: none;
+		display: flex;
 	}
 
 	.calculator__key:is(
@@ -204,25 +236,7 @@
 		[data-key='square'],
 		[data-key='ten_power']
 	) {
-		display: flex;
-	}
-
-	&.hide {
-		.calculator__key:is(
-			[data-key='cube_root'],
-			[data-key='cube'],
-			[data-key='two_power']
-		) {
-			display: flex;
-		}
-
-		.calculator__key:is(
-			[data-key='square_root'],
-			[data-key='square'],
-			[data-key='ten_power']
-		) {
-			display: none;
-		}
+		display: none;
 	}
 }
 

@@ -52,8 +52,13 @@ const calculator = {
 			return;
 		}
 
-		if (['absolute', 'ceil', 'floor'].includes(key)) {
+		if (['absolute', 'ceil', 'floor', 'round'].includes(key)) {
 			this.calculateExpression(key);
+			return;
+		}
+
+		if (key === 'random') {
+			input.value = input.value + Math.random().toFixed(5);
 			return;
 		}
 
