@@ -12,16 +12,8 @@ const calculatorSidebar = document.querySelector('.calculator__sidebar');
 const historyBoard = document.querySelector('.calculator__board');
 const toggleHistoryViewButton = document.querySelector('.btn--history');
 const historyDeleteButton = document.querySelector('.calculator__delete');
-const mathFunctionsContainer = document.querySelector(
-	'.calculator__dropdown--math-functions',
-);
-const trigonometryFunctionsContainer = document.querySelector(
-	'.calculator__dropdown--trigonometry-functions',
-);
-let isHistoryOpen = false;
 
-mathFunctions.style.display = 'none';
-trigonometryFunctions.style.display = 'none';
+let isHistoryOpen = false;
 
 const history = JSON.parse(localStorage.getItem('history')) || [];
 
@@ -40,19 +32,6 @@ historyBoard.addEventListener('click', (e) => putValueFromHistory(e));
 historyBoard.addEventListener('keydown', (e) => putValueFromHistory(e));
 
 historyDeleteButton.addEventListener('click', (e) => clearHistory(e));
-
-trigonometryFunctionsContainer.addEventListener('click', (e) => {
-	mathFunctions.style.display = 'none';
-
-	trigonometryFunctions.style.display =
-		trigonometryFunctions.style.display === 'none' ? 'grid' : 'none';
-});
-mathFunctionsContainer.addEventListener('click', (e) => {
-	trigonometryFunctions.style.display = 'none';
-
-	mathFunctions.style.display =
-		mathFunctions.style.display === 'none' ? 'grid' : 'none';
-});
 
 toggleHistoryViewButton.addEventListener('click', function () {
 	isHistoryOpen = !isHistoryOpen;

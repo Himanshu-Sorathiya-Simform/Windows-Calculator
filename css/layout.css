@@ -126,55 +126,52 @@
 	gap: var(--space-4);
 
 	.calculator__dropdown {
+		position: relative;
+
 		padding: var(--space-1) var(--space-2);
+		cursor: pointer;
 
 		display: flex;
 		align-items: center;
 		gap: var(--space-1);
 
-		&:hover {
+		&:hover,
+		&:focus {
 			background-color: var(--color-gray-dark);
+
+			> .functions-wrapper {
+				display: grid;
+			}
 		}
 
 		&:focus {
 			outline: var(--border-thin) solid var(--color-text-white);
 			border-radius: var(--border-radius-medium);
 		}
-	}
 
-	.calculator__dropdown--trigonometry-functions {
-		position: relative;
-
-		.trigonometry-functions-wrapper {
+		.functions-wrapper {
 			width: 200%;
 			position: absolute;
 			top: 100%;
-			left: -5%;
 
 			padding: 0.5rem;
 			background-color: var(--background-dark);
 
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
+			display: none;
+
 			gap: 3px;
 		}
-	}
 
-	.calculator__dropdown--math-functions {
-		position: relative;
+		.trigonometry-functions-wrapper {
+			left: -5%;
+
+			grid-template-columns: repeat(3, 1fr);
+		}
 
 		.math-functions-wrapper {
-			width: 200%;
-			position: absolute;
-			top: 100%;
 			left: -50%;
 
-			padding: 0.5rem;
-			background-color: var(--background-dark);
-
-			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			gap: 3px;
 		}
 	}
 }
