@@ -4,7 +4,31 @@ const calculatorBoard = document.querySelector('.calculator__board');
 const historyBoard = document.querySelector('.calculator__board');
 const input = document.querySelector('.calculator__input');
 
-const prefix = ['|', '⌈', '⌊', '['];
+const prefixes = [
+	'|',
+	'⌈',
+	'⌊',
+	'[',
+	'si(',
+	'sin(',
+	'cos(',
+	'tan(',
+	'cot(',
+	'sec(',
+	'cosec(',
+];
+
+function removePrefixAndSuffix(expr) {
+	if (!expr) return expr;
+
+	const match = prefixes.find((p) => expr.startsWith(p));
+
+	if (match) {
+		return expr.slice(match.length, -1);
+	}
+
+	return expr;
+}
 
 function insertHistoryCard(previewStr, answerStr) {
 	const historyCard = document.createElement('button');
@@ -25,10 +49,6 @@ function insertHistoryCard(previewStr, answerStr) {
 }
 
 function putValueFromHistory(e) {
-	function removePrefixAndSuffix(expr) {
-		return prefix.includes(expr[0]) ? expr.slice(1, -1) : expr;
-	}
-
 	if (e instanceof KeyboardEvent && e.key !== 'Enter') {
 		return;
 	}

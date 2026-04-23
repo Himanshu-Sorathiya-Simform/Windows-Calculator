@@ -13,6 +13,28 @@ const errorDisplay = document.querySelector('.calculator__error');
 const keypad = document.querySelector('.calculator__keypad');
 const keypadInverseButton = document.querySelector('[data-key="inverse"]');
 
+const functions = [
+	'absolute',
+	'ceil',
+	'floor',
+	'round',
+	'sin',
+	'cos',
+	'tan',
+	'cosec',
+	'sec',
+	'cot',
+];
+
+const wrapperOperatorsWithoutClosing = ['reciprocal', 'ten_power', 'two_power'];
+
+const wrapperOperatorsWithClosing = [
+	'logarithm',
+	'natural_log',
+	'square_root',
+	'cube_root',
+];
+
 const calculator = {
 	expression: [],
 	postfix: [],
@@ -52,40 +74,19 @@ const calculator = {
 			return;
 		}
 
-		if (
-			[
-				'absolute',
-				'ceil',
-				'floor',
-				'round',
-				'sin',
-				'cos',
-				'tan',
-				'cosec',
-				'sec',
-				'cot',
-			].includes(key)
-		) {
-			this.calculateExpression(key);
-			return;
-		}
-
 		if (key === 'random') {
 			input.value = input.value + Math.random().toFixed(5);
 			return;
 		}
 
+		if (functions.includes(key)) {
+			this.calculateExpression(key);
+			return;
+		}
+
 		if (
 			input.value &&
-			[
-				'reciprocal',
-				'ten_power',
-				'two_power',
-				'square_root',
-				'cube_root',
-				'logarithm',
-				'natural_log',
-			].includes(key) &&
+			wrapperOperatorsWithoutClosing.includes(key) &&
 			!operatorMap[input.value.at(-1)]
 		) {
 			const num = this.getLastNumber();
@@ -93,8 +94,21 @@ const calculator = {
 			input.value =
 				input.value.slice(0, -num.length) + keyMap.get(key).display + num;
 
-			if (['logarithm', 'natural_log', 'square_root', 'cube_root'].includes(key))
-				input.value += keyMap.get('right_parenthesis').display;
+			return;
+		}
+
+		if (
+			input.value &&
+			wrapperOperatorsWithClosing.includes(key) &&
+			!operatorMap[input.value.at(-1)]
+		) {
+			const num = this.getLastNumber();
+
+			input.value =
+				input.value.slice(0, -num.length) +
+				keyMap.get(key).display +
+				num +
+				keyMap.get('right_parenthesis').display;
 
 			return;
 		}
@@ -103,7 +117,7 @@ const calculator = {
 		input.focus();
 	},
 	handleKeyboard: function (e) {
-		if (e.key !== 'Tab') input.focus();
+		if (e.key !== 'Tab' && e.key !== 'Shift') input.focus();
 
 		if (e.key === 'Escape') {
 			e.preventDefault();
@@ -123,7 +137,7 @@ const calculator = {
 			e.key,
 		);
 
-		if (/[a-zA-Z]/.test(e.key) && !isControlKey) {
+		if (e.key !== 'Tab' && /[a-zA-Z]/.test(e.key) && !isControlKey) {
 			e.preventDefault();
 		}
 	},
@@ -161,7 +175,7 @@ const calculator = {
 			)
 			.join('');
 
-		history.push([expr, this.answer]);
+		history.push([expr, String(this.answer)]);
 		insertHistoryCard(expr, this.answer);
 		localStorage.setItem('history', JSON.stringify(history));
 	},

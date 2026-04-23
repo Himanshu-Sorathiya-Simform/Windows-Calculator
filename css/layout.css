@@ -136,7 +136,7 @@
 		gap: var(--space-1);
 
 		&:hover,
-		&:focus {
+		&:focus-within {
 			background-color: var(--color-gray-dark);
 
 			> .functions-wrapper {
@@ -144,7 +144,7 @@
 			}
 		}
 
-		&:focus {
+		&:focus-within {
 			outline: var(--border-thin) solid var(--color-text-white);
 			border-radius: var(--border-radius-medium);
 		}
@@ -227,6 +227,10 @@
 
 .calculator__key:is([data-key='cube_root'], [data-key='cube'], [data-key='two_power']) {
 	display: none;
+
+	.hide & {
+		display: flex;
+	}
 }
 
 .calculator__key:is(
@@ -235,22 +239,8 @@
 	[data-key='ten_power']
 ) {
 	display: flex;
-}
 
-&.hide {
-	.calculator__key:is(
-		[data-key='cube_root'],
-		[data-key='cube'],
-		[data-key='two_power']
-	) {
-		display: flex;
-	}
-
-	.calculator__key:is(
-		[data-key='square_root'],
-		[data-key='square'],
-		[data-key='ten_power']
-	) {
+	.hide & {
 		display: none;
 	}
 }
