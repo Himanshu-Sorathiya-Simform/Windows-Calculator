@@ -39,13 +39,55 @@ const calculator = {
 	expression: [],
 	postfix: [],
 	answer: 0,
+	memory: 0,
 
 	getLastNumber: function () {
 		const match = input.value.match(/[\d.]+$/);
 
 		return match ? match[0] : '';
 	},
+	handleMemory: function (e) {
+		input.focus();
+		const key = e.target.closest('.calculator__memory-btn')?.getAttribute('data-key');
+
+		if (!key) return;
+
+		const mcBtn = document.querySelector('[data-key="clear_memory"]');
+		const mrBtn = document.querySelector('[data-key="read_memory"]');
+
+		const toggleMemoryButtons = (isDisabled) => {
+			[mcBtn, mrBtn].forEach((el) => {
+				el.disabled = isDisabled;
+				el.classList.toggle('calculator__memory-btn--disabled', isDisabled);
+			});
+		};
+
+		if (['memory_add', 'memory_subtract', 'memory_store'].includes(key)) {
+			this.calculateExpression(null, false);
+		}
+
+		if (key === 'clear_memory') {
+			this.memory = 0;
+
+			toggleMemoryButtons(true);
+		} else if (key === 'read_memory') {
+			input.value += this.memory;
+		} else if (key === 'memory_add') {
+			this.memory = +(+this.memory + +this.answer);
+
+			toggleMemoryButtons(false);
+		} else if (key === 'memory_subtract') {
+			this.memory = +(+this.memory - +this.answer);
+
+			toggleMemoryButtons(false);
+		} else if (key === 'memory_store') {
+			this.memory = +this.answer;
+
+			toggleMemoryButtons(false);
+		}
+	},
 	handleClick: function (e) {
+		input.focus();
 		const key = e.target.closest('.calculator__key')?.getAttribute('data-key');
 
 		if (!key) return;
@@ -60,27 +102,32 @@ const calculator = {
 		if (key === 'clear') {
 			this.clearDisplay();
 			errorDisplay.textContent = '';
+
 			return;
 		}
 
 		if (key === 'backspace') {
 			this.handleBackspace();
 			errorDisplay.textContent = '';
+
 			return;
 		}
 
 		if (key === 'equals') {
 			this.calculateExpression();
+
 			return;
 		}
 
 		if (key === 'random') {
 			input.value = input.value + Math.random().toFixed(5);
+
 			return;
 		}
 
 		if (functions.includes(key)) {
 			this.calculateExpression(key);
+
 			return;
 		}
 
@@ -114,7 +161,6 @@ const calculator = {
 		}
 
 		input.value = input.value + keyMap.get(key).display;
-		input.focus();
 	},
 	handleKeyboard: function (e) {
 		if (e.key !== 'Tab' && e.key !== 'Shift') input.focus();
@@ -141,7 +187,7 @@ const calculator = {
 			e.preventDefault();
 		}
 	},
-	calculateExpression: function (func) {
+	calculateExpression: function (func, updateHistory = true) {
 		this.expression = [];
 		this.postfix = [];
 		this.answer = 0;
@@ -157,7 +203,7 @@ const calculator = {
 				func,
 			);
 
-			this.handleHistory();
+			if (updateHistory) this.handleHistory();
 
 			input.value = this.answer;
 

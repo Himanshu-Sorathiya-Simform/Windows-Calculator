@@ -6,9 +6,12 @@ import {
 import { calculator } from './modules/calculator.js';
 
 const keypad = document.querySelector('.calculator__keypad');
-const trigonometryFunctions = document.querySelector('.trigonometry-functions-wrapper');
+const trigonometryFunctions = document.querySelector(
+	'.trigonometry-functions-wrapper',
+);
 const mathFunctions = document.querySelector('.math-functions-wrapper');
 const calculatorSidebar = document.querySelector('.calculator__sidebar');
+const memoryFunctions = document.querySelector('.calculator__memory');
 const historyBoard = document.querySelector('.calculator__board');
 const toggleHistoryViewButton = document.querySelector('.btn--history');
 const historyDeleteButton = document.querySelector('.calculator__delete');
@@ -21,6 +24,7 @@ for (const [preview, answer] of history) {
 	insertHistoryCard(preview, answer);
 }
 
+memoryFunctions.addEventListener('click', (e) => calculator.handleMemory(e));
 keypad.addEventListener('click', (e) => calculator.handleClick(e));
 mathFunctions.addEventListener('click', (e) => calculator.handleClick(e));
 trigonometryFunctions.addEventListener('click', (e) => calculator.handleClick(e));

@@ -13,7 +13,7 @@
 .calculator {
 	position: relative;
 
-	height: 31rem;
+	height: 33.625rem;
 	width: min(60rem, 100%);
 	background-color: var(--background-dark);
 	border-radius: var(--border-radius-medium);
@@ -212,7 +212,6 @@
 }
 
 .calculator__key--number {
-	font-weight: var(--font-weight-semibold);
 	background-color: var(--color-gray-light);
 }
 
@@ -225,7 +224,11 @@
 	}
 }
 
-.calculator__key:is([data-key='cube_root'], [data-key='cube'], [data-key='two_power']) {
+.calculator__key:is(
+	[data-key='cube_root'],
+	[data-key='cube'],
+	[data-key='two_power']
+) {
 	display: none;
 
 	.hide & {

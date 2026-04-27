@@ -58,6 +58,40 @@
 							class="calculator__input" />
 					</div>
 
+					<div class="calculator__memory">
+						<button
+							disabled
+							data-key="clear_memory"
+							class="calculator__memory-btn calculator__memory-btn--disabled">
+							MC
+						</button>
+
+						<button
+							disabled
+							data-key="read_memory"
+							class="calculator__memory-btn calculator__memory-btn--disabled">
+							MR
+						</button>
+
+						<button
+							data-key="memory_add"
+							class="calculator__memory-btn">
+							M+
+						</button>
+
+						<button
+							data-key="memory_subtract"
+							class="calculator__memory-btn">
+							M-
+						</button>
+
+						<button
+							data-key="memory_store"
+							class="calculator__memory-btn">
+							MS
+						</button>
+					</div>
+
 					<div class="calculator__dropdown-container">
 						<div
 							class="calculator__dropdown calculator__dropdown--trigonometry-functions">
@@ -68,7 +102,8 @@
 									href="assets/icons/ui_icons_sprite.svg#chevron-down"></use>
 							</svg>
 
-							<div class="functions-wrapper trigonometry-functions-wrapper">
+							<div
+								class="functions-wrapper trigonometry-functions-wrapper">
 								<button
 									data-key="sin"
 									class="calculator__key calculator__key--function">
@@ -391,7 +426,8 @@
 							title="delete"
 							class="calculator__delete">
 							<svg class="icon__medium">
-								<use href="assets/icons/ui_icons_sprite.svg#delete"></use>
+								<use
+									href="assets/icons/ui_icons_sprite.svg#delete"></use>
 							</svg>
 						</button>
 					</nav>
