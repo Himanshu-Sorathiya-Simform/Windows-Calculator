@@ -1,5 +1,8 @@
 {
-  "devDependencies": {
-    "typescript": "^6.0.3"
-  }
+	"name": "Calculator",
+	"version": "1.0.0",
+	"type": "module",
+	"devDependencies": {
+		"typescript": "^6.0.3"
+	}
 }
