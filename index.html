@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Best Calculator, haha" />
+
+		<title>Calculator</title>
+
+		<link
+			rel="icon"
+			type="image/x-icon"
+			href="assets/icons/calculator-light.svg" />
+
+		<link
+			rel="stylesheet"
+			href="css/style.css" />
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="calculator">
+				<main class="calculator__main">
+					<header class="calculator__header">
+						<button
+							title="menu"
+							class="calculator__menu">
+							<svg class="icon__medium">
+								<use
+									href="assets/icons/ui_icons_sprite.svg#hamburger"></use>
+							</svg>
+						</button>
+
+						<h1 class="calculator__heading">Scientific</h1>
+
+						<button
+							title="history"
+							class="btn--history">
+							<svg class="icon__medium btn--history">
+								<use
+									href="./assets/icons/ui_icons_sprite.svg#history"></use>
+							</svg>
+						</button>
+					</header>
+
+					<div class="calculator__display">
+						<div class="calculator__error"></div>
+
+						<input
+							id="query"
+							autofocus
+							type="text"
+							placeholder="0"
+							class="calculator__input" />
+					</div>
+
+					<div class="calculator__memory">
+						<button
+							disabled
+							data-key="clear_memory"
+							class="calculator__memory-btn calculator__memory-btn--disabled">
+							MC
+						</button>
+
+						<button
+							disabled
+							data-key="read_memory"
+							class="calculator__memory-btn calculator__memory-btn--disabled">
+							MR
+						</button>
+
+						<button
+							data-key="memory_add"
+							class="calculator__memory-btn">
+							M+
+						</button>
+
+						<button
+							data-key="memory_subtract"
+							class="calculator__memory-btn">
+							M-
+						</button>
+
+						<button
+							data-key="memory_store"
+							class="calculator__memory-btn">
+							MS
+						</button>
+					</div>
+
+					<div class="calculator__dropdown-container">
+						<div
+							class="calculator__dropdown calculator__dropdown--trigonometry-functions">
+							<button>Trigonometry</button>
+
+							<svg class="icon__small">
+								<use
+									href="assets/icons/ui_icons_sprite.svg#chevron-down"></use>
+							</svg>
+
+							<div
+								class="functions-wrapper trigonometry-functions-wrapper">
+								<button
+									data-key="sin"
+									class="calculator__key calculator__key--function">
+									sin
+								</button>
+
+								<button
+									data-key="cos"
+									class="calculator__key calculator__key--function">
+									cos
+								</button>
+
+								<button
+									data-key="tan"
+									class="calculator__key calculator__key--function">
+									tan
+								</button>
+
+								<button
+									data-key="cosec"
+									class="calculator__key calculator__key--function">
+									cosec
+								</button>
+
+								<button
+									data-key="sec"
+									class="calculator__key calculator__key--function">
+									sec
+								</button>
+
+								<button
+									data-key="cot"
+									class="calculator__key calculator__key--function">
+									cot
+								</button>
+							</div>
+						</div>
+
+						<div
+							class="calculator__dropdown calculator__dropdown--math-functions">
+							<button>Function</button>
+
+							<svg class="icon__small">
+								<use
+									href="assets/icons/ui_icons_sprite.svg#chevron-down"></use>
+							</svg>
+
+							<div class="functions-wrapper math-functions-wrapper">
+								<button
+									data-key="floor"
+									class="calculator__key calculator__key--function">
+									⌊x⌋
+								</button>
+
+								<button
+									data-key="ceil"
+									class="calculator__key calculator__key--function">
+									⌈x⌉
+								</button>
+
+								<button
+									data-key="round"
+									class="calculator__key calculator__key--function">
+									[x]
+								</button>
+
+								<button
+									data-key="random"
+									class="calculator__key calculator__key--function">
+									random
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="calculator__keypad">
+						<button
+							data-key="inverse"
+							class="calculator__key calculator__key--function">
+							2<sup>nd</sup>
+						</button>
+
+						<button
+							data-key="pi"
+							class="calculator__key calculator__key--function">
+							&pi;
+						</button>
+
+						<button
+							data-key="euler"
+							class="calculator__key calculator__key--function">
+							e
+						</button>
+
+						<button
+							data-key="clear"
+							class="calculator__key calculator__key--function">
+							C
+						</button>
+
+						<button
+							title="backspace"
+							data-key="backspace"
+							class="calculator__key calculator__key--function">
+							<svg class="icon__medium">
+								<use
+									href="./assets/icons/ui_icons_sprite.svg#backspace"></use>
+							</svg>
+						</button>
+
+						<button
+							data-key="square"
+							class="calculator__key calculator__key--function">
+							x²
+						</button>
+
+						<button
+							data-key="cube"
+							class="calculator__key calculator__key--function">
+							x³
+						</button>
+
+						<button
+							data-key="reciprocal"
+							class="calculator__key calculator__key--function">
+							1/x
+						</button>
+
+						<button
+							data-key="absolute"
+							class="calculator__key calculator__key--function">
+							|x|
+						</button>
+
+						<button
+							data-key="exponent"
+							class="calculator__key calculator__key--function">
+							exp
+						</button>
+
+						<button
+							data-key="remainder"
+							class="calculator__key calculator__key--function">
+							mod
+						</button>
+
+						<button
+							data-key="square_root"
+							class="calculator__key calculator__key--function">
+							²√x
+						</button>
+
+						<button
+							data-key="cube_root"
+							class="calculator__key calculator__key--function">
+							³√x
+						</button>
+
+						<button
+							data-key="left_parenthesis"
+							class="calculator__key calculator__key--function">
+							(
+						</button>
+
+						<button
+							data-key="right_parenthesis"
+							class="calculator__key calculator__key--function">
+							)
+						</button>
+
+						<button
+							data-key="factorial"
+							class="calculator__key calculator__key--function">
+							x!
+						</button>
+
+						<button
+							data-key="division"
+							class="calculator__key calculator__key--operator">
+							&divide;
+						</button>
+
+						<button
+							data-key="power"
+							class="calculator__key calculator__key--function">
+							xʸ
+						</button>
+
+						<button
+							data-key="seven"
+							class="calculator__key calculator__key--number">
+							7
+						</button>
+
+						<button
+							data-key="eight"
+							class="calculator__key calculator__key--number">
+							8
+						</button>
+
+						<button
+							data-key="nine"
+							class="calculator__key calculator__key--number">
+							9
+						</button>
+
+						<button
+							data-key="multiplication"
+							class="calculator__key calculator__key--operator">
+							&times;
+						</button>
+
+						<button
+							data-key="ten_power"
+							class="calculator__key calculator__key--function">
+							10ˣ
+						</button>
+
+						<button
+							data-key="two_power"
+							class="calculator__key calculator__key--function">
+							2ˣ
+						</button>
+
+						<button
+							data-key="four"
+							class="calculator__key calculator__key--number">
+							4
+						</button>
+
+						<button
+							data-key="five"
+							class="calculator__key calculator__key--number">
+							5
+						</button>
+
+						<button
+							data-key="six"
+							class="calculator__key calculator__key--number">
+							6
+						</button>
+
+						<button
+							data-key="subtraction"
+							class="calculator__key calculator__key--operator">
+							&minus;
+						</button>
+
+						<button
+							data-key="logarithm"
+							class="calculator__key calculator__key--function">
+							log
+						</button>
+
+						<button
+							data-key="one"
+							class="calculator__key calculator__key--number">
+							1
+						</button>
+
+						<button
+							data-key="two"
+							class="calculator__key calculator__key--number">
+							2
+						</button>
+
+						<button
+							data-key="three"
+							class="calculator__key calculator__key--number">
+							3
+						</button>
+
+						<button
+							data-key="addition"
+							class="calculator__key calculator__key--operator">
+							&plus;
+						</button>
+
+						<button
+							data-key="natural_log"
+							class="calculator__key calculator__key--function">
+							ln
+						</button>
+
+						<button
+							disabled
+							data-key="sign_change"
+							class="calculator__key calculator__key--number">
+							±
+						</button>
+
+						<button
+							data-key="zero"
+							class="calculator__key calculator__key--number">
+							0
+						</button>
+
+						<button
+							data-key="decimal"
+							class="calculator__key calculator__key--number">
+							.
+						</button>
+
+						<button
+							data-key="equals"
+							class="button--accent calculator__key calculator__key--accent calculator__key--operator">
+							&equals;
+						</button>
+					</div>
+				</main>
+
+				<aside class="calculator__sidebar">
+					<nav class="calculator__navbar">
+						<button
+							class="calculator__nav-button calculator__nav-button--active">
+							History
+						</button>
+
+						<button
+							title="delete"
+							class="calculator__delete">
+							<svg class="icon__medium">
+								<use
+									href="assets/icons/ui_icons_sprite.svg#delete"></use>
+							</svg>
+						</button>
+					</nav>
+
+					<div class="calculator__board"></div>
+				</aside>
+			</div>
+		</div>
+
+		<script
+			type="module"
+			src="js/main.js"></script>
+		<script
+			type="module"
+			src="js/keyMappings.js"></script>
+	</body>
+</html>
