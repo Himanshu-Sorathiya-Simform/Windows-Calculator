@@ -19,7 +19,7 @@ const historyDeleteButton =
 
 let isHistoryOpen = false;
 
-const history = JSON.parse(localStorage.getItem('history') ?? '') || [];
+const history = JSON.parse(localStorage.getItem('history') ?? 'null') || [];
 
 for (const [preview, answer] of history) {
 	insertHistoryCard(preview, answer);

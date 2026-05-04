@@ -218,11 +218,8 @@ const calculator: Calculator = {
 
 		try {
 			this.expression = tokenizeExpression(input.value);
-			console.log('EXPRESSION', this.expression);
-
 
 			this.postfix = buildPostfixExpression(this.expression);
-			console.log('POSTFIX', this.postfix);
 
 			[this.answer, this.expression] = solveExpression(
 				this.postfix,
