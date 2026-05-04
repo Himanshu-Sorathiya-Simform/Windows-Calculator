@@ -127,6 +127,7 @@
 
 	.calculator__dropdown {
 		position: relative;
+		z-index: 1;
 
 		padding: var(--space-1) var(--space-2);
 		cursor: pointer;
@@ -224,11 +225,7 @@
 	}
 }
 
-.calculator__key:is(
-	[data-key='cube_root'],
-	[data-key='cube'],
-	[data-key='two_power']
-) {
+.calculator__key:is([data-key='cube_root'], [data-key='cube'], [data-key='two_power']) {
 	display: none;
 
 	.hide & {
@@ -250,6 +247,9 @@
 
 .calculator__sidebar {
 	flex: 1;
+
+	position: relative;
+	z-index: 10;
 
 	height: 100%;
 	padding: var(--space-3);
