@@ -40,14 +40,12 @@ const keyMap = new Map([
 	['eight', { display: '8' }],
 	['nine', { display: '9' }],
 
-	['sign_change', { displayPlus: '+', displayMinus: '-' }],
-
 	['decimal', { display: '.' }],
 
 	['equals', { display: '=' }],
 ]);
 
-const operatorMap = {
+const operatorMap: { [key: string]: { precedence: number; operands: number } } = {
 	'(': { precedence: 0, operands: 0 },
 	')': { precedence: 0, operands: 0 },
 
@@ -67,7 +65,7 @@ const operatorMap = {
 	'%': { precedence: 12, operands: 2 },
 };
 
-const specialValue = {
+const specialValue: { [key: string]: string } = {
 	π: `${Math.PI}`,
 	e: `${Math.E}`,
 };

@@ -2,34 +2,34 @@ import { operatorMap, specialValue } from '../keyMappings.js';
 
 const TOKEN_REGEX = /\d+(\.\d+)?|log|ln|³√|²√|[()^+\-*/!πe]/g;
 
-function isNumber(token) {
+function isNumber(token: string): boolean {
 	return /^\d+(\.\d+)?$/.test(token);
 }
 
-function isOperator(token) {
+function isOperator(token: string): boolean {
 	return !!operatorMap[token];
 }
 
-function isSpecialValue(token) {
+function isSpecialValue(token: string): boolean {
 	return !!specialValue[token];
 }
 
-function isFunction(token) {
+function isFunction(token: string): token is 'log' | 'ln' | '²√' | '³√' {
 	return token === 'log' || token === 'ln' || token === '²√' || token === '³√';
 }
 
-function tokenizeExpression(input) {
+function tokenizeExpression(input: string): string[] {
 	const rawTokens = input.match(TOKEN_REGEX);
 
 	if (!rawTokens || rawTokens.join('').length !== input.length) {
 		throw new Error('Invalid Expression');
 	}
 
-	const tokens = [];
+	const tokens: string[] = [];
 	let roundBrackets = 0;
 
 	for (let i = 0; i < rawTokens.length; i++) {
-		let token = rawTokens[i];
+		let token = rawTokens[i]!;
 		let prev = tokens.at(-1);
 
 		if (token === '(') {

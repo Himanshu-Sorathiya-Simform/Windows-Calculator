@@ -5,20 +5,21 @@ import {
 } from './handlers/historyHandler.js';
 import { calculator } from './modules/calculator.js';
 
-const keypad = document.querySelector('.calculator__keypad');
-const trigonometryFunctions = document.querySelector(
+const keypad = document.querySelector<HTMLDivElement>('.calculator__keypad')!;
+const trigonometryFunctions = document.querySelector<HTMLDivElement>(
 	'.trigonometry-functions-wrapper',
-);
-const mathFunctions = document.querySelector('.math-functions-wrapper');
-const calculatorSidebar = document.querySelector('.calculator__sidebar');
-const memoryFunctions = document.querySelector('.calculator__memory');
-const historyBoard = document.querySelector('.calculator__board');
-const toggleHistoryViewButton = document.querySelector('.btn--history');
-const historyDeleteButton = document.querySelector('.calculator__delete');
+)!;
+const mathFunctions = document.querySelector<HTMLDivElement>('.math-functions-wrapper')!;
+const calculatorSidebar = document.querySelector<HTMLDivElement>('.calculator__sidebar')!;
+const memoryFunctions = document.querySelector<HTMLDivElement>('.calculator__memory')!;
+const historyBoard = document.querySelector<HTMLDivElement>('.calculator__board')!;
+const toggleHistoryViewButton = document.querySelector<HTMLDivElement>('.btn--history')!;
+const historyDeleteButton =
+	document.querySelector<HTMLDivElement>('.calculator__delete')!;
 
 let isHistoryOpen = false;
 
-const history = JSON.parse(localStorage.getItem('history')) || [];
+const history = JSON.parse(localStorage.getItem('history') ?? '') || [];
 
 for (const [preview, answer] of history) {
 	insertHistoryCard(preview, answer);

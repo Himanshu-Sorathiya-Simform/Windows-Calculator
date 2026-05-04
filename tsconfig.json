@@ -1,0 +1,40 @@
+{
+	"compilerOptions": {
+		"rootDir": "./src",
+		"outDir": "./dist",
+
+		"module": "esnext",
+		"moduleResolution": "node",
+		"allowImportingTsExtensions": false,
+		"target": "esnext",
+		"types": [],
+
+		"sourceMap": true,
+		"declaration": true,
+		"declarationMap": true,
+
+		"allowUnreachableCode": false,
+		"alwaysStrict": true,
+		"noFallthroughCasesInSwitch": true,
+		"exactOptionalPropertyTypes": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
+		"strictNullChecks": true,
+		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
+		"strictPropertyInitialization": true,
+
+		"strict": true,
+		"jsx": "react-jsx",
+		"verbatimModuleSyntax": true,
+		"isolatedModules": true,
+		"noUncheckedSideEffectImports": true,
+		"moduleDetection": "force",
+		"skipLibCheck": true
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist"]
+}

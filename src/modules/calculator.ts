@@ -7,11 +7,27 @@ import { tokenizeExpression } from './tokenizer.js';
 
 import { insertHistoryCard } from '../handlers/historyHandler.js';
 
-const input = document.querySelector('.calculator__input');
-const errorDisplay = document.querySelector('.calculator__error');
+interface Calculator {
+	expression: string[];
+	postfix: string[];
+	answer: number;
+	memory: number;
+	getLastNumber: () => string;
+	handleMemory: (e: PointerEvent) => void;
+	handleClick: (e: PointerEvent) => void;
+	handleKeyboard: (e: KeyboardEvent) => void;
+	calculateExpression: (func?: string | undefined, updateHistory?: boolean) => void;
+	handleHistory: () => void;
+	clearDisplay: () => void;
+	handleBackspace: () => void;
+}
 
-const keypad = document.querySelector('.calculator__keypad');
-const keypadInverseButton = document.querySelector('[data-key="inverse"]');
+const input = document.querySelector<HTMLInputElement>('.calculator__input')!;
+const errorDisplay = document.querySelector<HTMLSpanElement>('.calculator__error')!;
+
+const keypad = document.querySelector<HTMLInputElement>('.calculator__keypad')!;
+const keypadInverseButton =
+	document.querySelector<HTMLButtonElement>('[data-key="inverse"]')!;
 
 const functions = [
 	'absolute',
@@ -35,7 +51,7 @@ const wrapperOperatorsWithClosing = [
 	'cube_root',
 ];
 
-const calculator = {
+const calculator: Calculator = {
 	expression: [],
 	postfix: [],
 	answer: 0,
@@ -46,16 +62,22 @@ const calculator = {
 
 		return match ? match[0] : '';
 	},
-	handleMemory: function (e) {
+	handleMemory: function (e: PointerEvent) {
 		input.focus();
-		const key = e.target.closest('.calculator__memory-btn')?.getAttribute('data-key');
+		const key = (e.target as HTMLElement)
+			.closest('.calculator__memory-btn')
+			?.getAttribute('data-key');
 
 		if (!key) return;
 
-		const mcBtn = document.querySelector('[data-key="clear_memory"]');
-		const mrBtn = document.querySelector('[data-key="read_memory"]');
+		const mcBtn = document.querySelector<HTMLButtonElement>(
+			'[data-key="clear_memory"]',
+		)!;
+		const mrBtn = document.querySelector<HTMLButtonElement>(
+			'[data-key="read_memory"]',
+		)!;
 
-		const toggleMemoryButtons = (isDisabled) => {
+		const toggleMemoryButtons = (isDisabled: boolean) => {
 			[mcBtn, mrBtn].forEach((el) => {
 				el.disabled = isDisabled;
 				el.classList.toggle('calculator__memory-btn--disabled', isDisabled);
@@ -63,7 +85,7 @@ const calculator = {
 		};
 
 		if (['memory_add', 'memory_subtract', 'memory_store'].includes(key)) {
-			this.calculateExpression(null, false);
+			this.calculateExpression(undefined, false);
 		}
 
 		if (key === 'clear_memory') {
@@ -86,9 +108,11 @@ const calculator = {
 			toggleMemoryButtons(false);
 		}
 	},
-	handleClick: function (e) {
+	handleClick: function (e: PointerEvent) {
 		input.focus();
-		const key = e.target.closest('.calculator__key')?.getAttribute('data-key');
+		const key = (e.target as HTMLElement)
+			.closest('.calculator__key')
+			?.getAttribute('data-key');
 
 		if (!key) return;
 
@@ -134,12 +158,12 @@ const calculator = {
 		if (
 			input.value &&
 			wrapperOperatorsWithoutClosing.includes(key) &&
-			!operatorMap[input.value.at(-1)]
+			!operatorMap[input.value.at(-1)!]
 		) {
 			const num = this.getLastNumber();
 
 			input.value =
-				input.value.slice(0, -num.length) + keyMap.get(key).display + num;
+				input.value.slice(0, -num.length) + keyMap.get(key)!.display + num;
 
 			return;
 		}
@@ -147,22 +171,22 @@ const calculator = {
 		if (
 			input.value &&
 			wrapperOperatorsWithClosing.includes(key) &&
-			!operatorMap[input.value.at(-1)]
+			!operatorMap[input.value.at(-1)!]
 		) {
 			const num = this.getLastNumber();
 
 			input.value =
 				input.value.slice(0, -num.length) +
-				keyMap.get(key).display +
+				keyMap.get(key)!.display +
 				num +
-				keyMap.get('right_parenthesis').display;
+				keyMap.get('right_parenthesis')!.display;
 
 			return;
 		}
 
-		input.value = input.value + keyMap.get(key).display;
+		input.value = input.value + keyMap.get(key)!.display;
 	},
-	handleKeyboard: function (e) {
+	handleKeyboard: function (e: KeyboardEvent) {
 		if (e.key !== 'Tab' && e.key !== 'Shift') input.focus();
 
 		if (e.key === 'Escape') {
@@ -187,7 +211,7 @@ const calculator = {
 			e.preventDefault();
 		}
 	},
-	calculateExpression: function (func, updateHistory = true) {
+	calculateExpression: function (func?: string, updateHistory: boolean = true) {
 		this.expression = [];
 		this.postfix = [];
 		this.answer = 0;
@@ -205,11 +229,12 @@ const calculator = {
 
 			if (updateHistory) this.handleHistory();
 
-			input.value = this.answer;
+			input.value = String(this.answer);
 
 			errorDisplay.textContent = '';
 		} catch (error) {
-			errorDisplay.textContent = error.message;
+			if (error instanceof Error) errorDisplay.textContent = error.message;
+			else errorDisplay.textContent = 'Please enter valid expression';
 		}
 	},
 	handleHistory: function () {
@@ -222,7 +247,7 @@ const calculator = {
 			.join('');
 
 		history.push([expr, String(this.answer)]);
-		insertHistoryCard(expr, this.answer);
+		insertHistoryCard(expr, String(this.answer));
 		localStorage.setItem('history', JSON.stringify(history));
 	},
 	clearDisplay: function () {

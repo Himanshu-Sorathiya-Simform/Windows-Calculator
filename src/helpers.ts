@@ -1,10 +1,10 @@
-function factorial(num) {
+function factorial(num: number): number {
 	if (num <= 1) return 1;
 
 	return num * factorial(num - 1);
 }
 
-const calculateUnary = (operator, operand) => {
+function calculateUnary(operator: string, operand: number): number {
 	switch (operator) {
 		case 'UM':
 			return -1 * operand;
@@ -33,10 +33,13 @@ const calculateUnary = (operator, operand) => {
 
 		case 'ln':
 			return Math.log(operand);
-	}
-};
 
-const calculateBinary = (operator, operand1, operand2) => {
+		default:
+			return operand;
+	}
+}
+
+function calculateBinary(operator: string, operand1: number, operand2: number): number {
 	switch (operator) {
 		case '^':
 			return operand1 ** operand2;
@@ -55,7 +58,10 @@ const calculateBinary = (operator, operand1, operand2) => {
 
 		case '*':
 			return operand1 * operand2;
+
+		default:
+			return operand1;
 	}
-};
+}
 
 export { calculateBinary, calculateUnary };

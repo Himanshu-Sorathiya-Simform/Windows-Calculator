@@ -1,8 +1,7 @@
 import { history } from '../main.js';
 
-const calculatorBoard = document.querySelector('.calculator__board');
-const historyBoard = document.querySelector('.calculator__board');
-const input = document.querySelector('.calculator__input');
+const historyBoard = document.querySelector<HTMLDivElement>('.calculator__board')!;
+const input = document.querySelector<HTMLInputElement>('.calculator__input')!;
 
 const prefixes = [
 	'|',
@@ -18,7 +17,7 @@ const prefixes = [
 	'cosec(',
 ];
 
-function removePrefixAndSuffix(expr) {
+function removePrefixAndSuffix(expr: string): string {
 	if (!expr) return expr;
 
 	const match = prefixes.find((p) => expr.startsWith(p));
@@ -30,7 +29,7 @@ function removePrefixAndSuffix(expr) {
 	return expr;
 }
 
-function insertHistoryCard(previewStr, answerStr) {
+function insertHistoryCard(previewStr: string, answerStr: string) {
 	const historyCard = document.createElement('button');
 	historyCard.classList.add('history__card');
 
@@ -45,26 +44,28 @@ function insertHistoryCard(previewStr, answerStr) {
 	historyCard.appendChild(preview);
 	historyCard.appendChild(answer);
 
-	calculatorBoard.prepend(historyCard);
+	historyBoard.prepend(historyCard);
 }
 
-function putValueFromHistory(e) {
+function putValueFromHistory(e: KeyboardEvent | MouseEvent) {
 	if (e instanceof KeyboardEvent && e.key !== 'Enter') {
 		return;
 	}
 
 	e.stopPropagation();
 
-	const expr = e.target
-		.closest('.history__card')
-		.querySelector('.history__preview').textContent;
+	const expr = (e.target as HTMLElement)
+		?.closest('.history__card')
+		?.querySelector('.history__preview')?.textContent;
+
+	if (!expr) return;
 
 	const value = removePrefixAndSuffix(expr);
 
 	input.value = value;
 }
 
-function clearHistory(e) {
+function clearHistory(e: MouseEvent) {
 	localStorage.clear();
 
 	historyBoard.innerHTML = '';
