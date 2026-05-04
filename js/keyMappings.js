@@ -54,8 +54,8 @@ const operatorMap = {
 	'²√': { precedence: 13, operands: 1 },
 	'³√': { precedence: 13, operands: 1 },
 	'!': { precedence: 14, operands: 1 },
-	log: { precedence: 13, operands: 1 },
-	ln: { precedence: 13, operands: 1 },
+	log: { precedence: 14, operands: 1 },
+	ln: { precedence: 14, operands: 1 },
 	UM: { precedence: 13, operands: 1 },
 	UP: { precedence: 13, operands: 1 },
 
