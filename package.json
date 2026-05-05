@@ -1,0 +1,24 @@
+{
+	"name": "calculator",
+	"version": "1.0.0",
+	"description": "",
+	"homepage": "https://github.com/Himanshu-Sorathiya-Simform/Windows-Calculator#readme",
+	"bugs": {
+		"url": "https://github.com/Himanshu-Sorathiya-Simform/Windows-Calculator/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Himanshu-Sorathiya-Simform/Windows-Calculator.git"
+	},
+	"license": "ISC",
+	"author": "",
+	"type": "module",
+	"main": "main.js",
+	"scripts": {
+		"build": "tsc",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"devDependencies": {
+		"typescript": "^6.0.3"
+	}
+}
