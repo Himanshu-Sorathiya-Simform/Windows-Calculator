@@ -64,4 +64,32 @@ function calculateBinary(operator: string, operand1: number, operand2: number): 
 	}
 }
 
-export { calculateBinary, calculateUnary };
+const functions = [
+	'absolute',
+	'ceil',
+	'floor',
+	'round',
+	'sin',
+	'cos',
+	'tan',
+	'cosec',
+	'sec',
+	'cot',
+];
+
+const wrapperOperatorsWithoutClosing = ['reciprocal', 'ten_power', 'two_power'];
+
+const wrapperOperatorsWithClosing = [
+	'logarithm',
+	'natural_log',
+	'square_root',
+	'cube_root',
+];
+
+export {
+	calculateBinary,
+	calculateUnary,
+	functions,
+	wrapperOperatorsWithClosing,
+	wrapperOperatorsWithoutClosing,
+};

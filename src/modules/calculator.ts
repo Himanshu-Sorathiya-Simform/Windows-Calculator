@@ -6,6 +6,11 @@ import { solveExpression } from './solution.js';
 import { tokenizeExpression } from './tokenizer.js';
 
 import { insertHistoryCard } from '../handlers/historyHandler.js';
+import {
+	functions,
+	wrapperOperatorsWithClosing,
+	wrapperOperatorsWithoutClosing,
+} from '../helpers.js';
 
 interface Calculator {
 	expression: string[];
@@ -16,7 +21,7 @@ interface Calculator {
 	handleMemory: (e: PointerEvent) => void;
 	handleClick: (e: PointerEvent) => void;
 	handleKeyboard: (e: KeyboardEvent) => void;
-	calculateExpression: (func?: string | undefined, updateHistory?: boolean) => void;
+	calculateExpression: (func?: string, updateHistory?: boolean) => void;
 	handleHistory: () => void;
 	clearDisplay: () => void;
 	handleBackspace: () => void;
@@ -28,28 +33,6 @@ const errorDisplay = document.querySelector<HTMLSpanElement>('.calculator__error
 const keypad = document.querySelector<HTMLInputElement>('.calculator__keypad')!;
 const keypadInverseButton =
 	document.querySelector<HTMLButtonElement>('[data-key="inverse"]')!;
-
-const functions = [
-	'absolute',
-	'ceil',
-	'floor',
-	'round',
-	'sin',
-	'cos',
-	'tan',
-	'cosec',
-	'sec',
-	'cot',
-];
-
-const wrapperOperatorsWithoutClosing = ['reciprocal', 'ten_power', 'two_power'];
-
-const wrapperOperatorsWithClosing = [
-	'logarithm',
-	'natural_log',
-	'square_root',
-	'cube_root',
-];
 
 const calculator: Calculator = {
 	expression: [],
@@ -163,7 +146,7 @@ const calculator: Calculator = {
 			const num = this.getLastNumber();
 
 			input.value =
-				input.value.slice(0, -num.length) + keyMap.get(key)!.display + num;
+				input.value.slice(0, -num.length) + keyMap.get(key)?.display + num;
 
 			return;
 		}
@@ -177,14 +160,14 @@ const calculator: Calculator = {
 
 			input.value =
 				input.value.slice(0, -num.length) +
-				keyMap.get(key)!.display +
+				keyMap.get(key)?.display +
 				num +
-				keyMap.get('right_parenthesis')!.display;
+				keyMap.get('right_parenthesis')?.display;
 
 			return;
 		}
 
-		input.value = input.value + keyMap.get(key)!.display;
+		input.value = input.value + keyMap.get(key)?.display;
 	},
 	handleKeyboard: function (e: KeyboardEvent) {
 		if (e.key !== 'Tab' && e.key !== 'Shift') input.focus();
